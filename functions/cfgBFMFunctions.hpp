@@ -16,6 +16,9 @@ class VintigoFunctions {
 		
 		class loadObjectiveDetails {};
 		class saveObjectiveDetails {};
+		class loadOpforDetails {};
+		class saveOpforDetails {};
+		class handleReinforcements {};
 		
 	};
 

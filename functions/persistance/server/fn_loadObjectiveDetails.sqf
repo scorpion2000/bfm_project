@@ -1,4 +1,4 @@
-_inidbi = ["new", "BFM_ObjectiveDetails"] call OO_INIDBI;
+_inidbi = ["new", "BFM_OpforDetails"] call OO_INIDBI;
 _emptyCheck = (["read", ["objective_settings", "objective_0"]] call _inidbi);
 
 if ((str _emptyCheck) != "false") then {
@@ -6,6 +6,7 @@ if ((str _emptyCheck) != "false") then {
 		_result = (["read", ["objective_settings", format ["objective_%1", _i]]] call _inidbi);
 		missionNamespace setVariable [format ["objective_%1", _i], _result];
 	};
+	[] execVM "scripts\checkObjectivesForBlufor.sqf";
 } else {
-	[] execVM "scripts\initOpforCommander.sqf";
+	[] execVM "scripts\initObjectiveSettings.sqf";
 }

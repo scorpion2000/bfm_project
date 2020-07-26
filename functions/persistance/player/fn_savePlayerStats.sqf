@@ -86,7 +86,5 @@ _saveArray pushBack _medicalArray;
 
 _saveArray pushback (getUnitLoadout _player);
 
-copyToClipboard str _saveArray;
-
 _inidbi = ["new", "BFM_PlayerStats"] call OO_INIDBI;
 ["write", ["playerPersistance", str (getPlayerUID _player), _saveArray]] call _inidbi;

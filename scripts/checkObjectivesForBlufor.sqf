@@ -1,20 +1,22 @@
-opfObjAreas_INACTIVE = [
-	spawnTriggerArea_obj_1,
-	spawnTriggerArea_obj_2,
-	spawnTriggerArea_obj_3,
-	spawnTriggerArea_obj_4,
-	spawnTriggerArea_obj_5,
-	spawnTriggerArea_obj_6,
-	spawnTriggerArea_obj_7
+opfObjAreas = [
+	["objective_0", spawnTriggerArea_obj_1],
+	["objective_1", spawnTriggerArea_obj_2],
+	["objective_2", spawnTriggerArea_obj_3],
+	["objective_3", spawnTriggerArea_obj_4],
+	["objective_4", spawnTriggerArea_obj_5],
+	["objective_5", spawnTriggerArea_obj_6],
+	["objective_6", spawnTriggerArea_obj_7]
 ];
 
-opfObjAreas_ACTIVE = [
+{
+	if (((missionNamespace getVariable (_x select 0)) select 6)) then {
+		opfObjAreas_INACTIVE pushBack (_x select 1);
+	}
+} forEach opfObjAreas;
 
-];
-
-opfObjAreas_WORKING = [
-
-];
+opfObjAreas_INACTIVE = [];
+opfObjAreas_ACTIVE = [];
+opfObjAreas_WORKING = [];
 
 while {true} do {
 	{

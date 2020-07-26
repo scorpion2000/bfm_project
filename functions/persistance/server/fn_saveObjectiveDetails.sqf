@@ -1,4 +1,4 @@
-_inidbi = ["new", "BFM_ObjectiveDetails"] call OO_INIDBI;
+_inidbi = ["new", "BFM_OpforDetails"] call OO_INIDBI;
 
 for "_i" from 0 to 6 do {
 	_saveArray = missionNamespace getVariable format ["objective_%1", _i];

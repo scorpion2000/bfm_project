@@ -81,3 +81,5 @@ _objective_6 = [
 ];
 
 missionNamespace setVariable ["objective_6", _objective_6];
+[] execVM "scripts\checkObjectivesForBlufor.sqf";
+[] remoteExec ["bfm_fnc_saveObjectiveDetails", 2, false];
