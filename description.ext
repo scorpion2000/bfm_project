@@ -1,0 +1,30 @@
+author			= "Hullahopp";
+onLoadName		= "BFM Project v2";
+onLoadMission	= "BFM Project v2";
+briefingName 	= "BFM Project v2";
+respawnDelay 	= 10;
+respawnButton 	= 1;
+respawnDialog 	= 0;
+respawn 		= 3;
+respawnOnStart 	= -1;
+reviveMode 		= 0;
+showGroupIndicator = 0;
+showMap 		= 0;
+aiKills 		= 0;
+briefing 		= 0;
+debriefing 		= 0;
+enableDebugConsole[] = {"76561198057067491"};
+skipLobby 		= 1;
+
+class Header
+{
+	gameType =  COOP;	// Game type
+	minPlayers =  1;	// minimum number of players the mission supports
+	maxPlayers = 64;	// maximum number of players the mission supports
+};
+
+class CfgFunctions 
+{
+	createShortcuts = 1;
+	#include "functions\cfgBFMFunctions.hpp"
+};
