@@ -29,4 +29,22 @@ class VintigoFunctions {
 		class laatSpawnBase {};
 		
 	};
+
+	class BFM_OPFOR_unitSpawners
+	{
+		file = "functions\opf_spawn";
+		
+		class createCounterAttack {};
+		class createHelpForce {};
+		class createPatrol {};
+		
+	};
+
+	class BFM_OPFOR_Commander
+	{
+		file = "functions\opf_commander";
+		
+		class opforCommanderLogic {};
+		
+	};
 };
