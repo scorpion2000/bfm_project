@@ -8,3 +8,4 @@ missionNamespace setVariable ["opf_reservesHeliCount", 1];		//Mainly attack guns
 reinf_timer = 50;	//Frequency with which OPFOR gets reinforcements
 
 [] remoteExec ["bfm_fnc_handleReinforcements", 2, false];
+[] remoteExec ["bfm_fnc_saveOpforDetails", 2, false];
