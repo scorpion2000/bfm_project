@@ -8,15 +8,15 @@ opfObjAreas = [
 	["objective_6", spawnTriggerArea_obj_7]
 ];
 
-{
-	if (((missionNamespace getVariable (_x select 0)) select 6)) then {
-		opfObjAreas_INACTIVE pushBack (_x select 1);
-	}
-} forEach opfObjAreas;
-
 opfObjAreas_INACTIVE = [];
 opfObjAreas_ACTIVE = [];
 opfObjAreas_WORKING = [];
+
+{
+	if !(((missionNamespace getVariable (_x select 0)) select 6)) then {
+		opfObjAreas_INACTIVE pushBack (_x select 1);
+	}
+} forEach opfObjAreas;
 
 while {true} do {
 	{
