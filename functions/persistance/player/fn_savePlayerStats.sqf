@@ -10,7 +10,7 @@
 
 params ["_player"];
 
-systemChat "Starting Player Stat Save";
+//systemChat "Starting Player Stat Save";
 _saveArray = [];
 
 _saveArray pushBack (getPosASL _player);
