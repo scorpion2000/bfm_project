@@ -37,6 +37,15 @@ class VintigoFunctions {
 		class createCounterAttack {};
 		class createHelpForce {};
 		class createPatrol {};
+		class createObjForce {};
+		
+	};
+
+	class BFM_Debug
+	{
+		file = "functions\debug";
+		
+		class perfMeter {};
 		
 	};
 
