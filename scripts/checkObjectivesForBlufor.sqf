@@ -23,8 +23,13 @@ while {true} do {
 		"areaCheckMarker" setMarkerPos (getPos _x);
 		if (count(allPlayers inAreaArray _x) > 0) then {
 			opfObjAreas_INACTIVE = opfObjAreas_INACTIVE - [_x];
-			opfObjAreas_ACTIVE pushBack _x;
+			opfObjAreas_WORKING pushBack _x;
 			//Move to WORKING list and spawn
+			if (isNil "BFM_HC1") then {
+				[] remoteExec ["bfm_fnc_createObjForce", 2, false];
+			} else {
+				[] remoteExec ["bfm_fnc_createObjForce", BFM_HC1, false];
+			}
 		};
 		sleep 0.2;
 	} forEach opfObjAreas_INACTIVE;
