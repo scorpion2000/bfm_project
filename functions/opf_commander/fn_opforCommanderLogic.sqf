@@ -25,10 +25,12 @@ _opf_objs = [
 
 //Actual commander logic start
 while {true} do {
-	sleep 30;
+	sleep 45;	//Not sure how often this should update. 45s seems reasonable?
 	_rndPatrol = floor (random 100);
 	_rndReinforce = floor (random 100);
 	_rndCounterAttack = floor (random 100);
+	_rndReinforceLow = floor (random 100);
+	_rndReinforceCount = floor (random 10);
 
 	switch (true) do {
 		case (count (opfObjAreas_ACTIVE) > 0 && COMMANDER_PLAN == "NONE"): { 
@@ -104,7 +106,7 @@ while {true} do {
 				};
 				case "REINFORCE": {
 					if (DEBUG) then {systemChat format ["Opfor Commander Decision: Reattempting Reinforcing Objective %1", COMMANDER_REINFORCE_PLAN_ID]};
-					if ((missionNamespace getVariable "opf_reservesRegularCount") >= 10) then {
+					if ((missionNamespace getVariable "opf_reservesRegularCount") >= _rndReinforceCount) then {
 						_obj = [];
 						_objName = "";
 						{
@@ -114,8 +116,8 @@ while {true} do {
 								_objName = _x;
 							};
 						} forEach _opf_objs;
-						_obj set [2, ((_obj select 2)+10)];
-						missionNamespace setVariable ["opf_reservesRegularCount", (missionNamespace getVariable "opf_reservesRegularCount") - 10];
+						_obj set [2, ((_obj select 2)+_rndReinforceCount)];
+						missionNamespace setVariable ["opf_reservesRegularCount", (missionNamespace getVariable "opf_reservesRegularCount") - _rndReinforceCount];
 						_rndElite = floor (random (missionNamespace getVariable "opf_reservesEliteCount"));
 						_obj set [3, ((_obj select 3)+_rndElite)];
 						missionNamespace setVariable ["opf_reservesEliteCount", (missionNamespace getVariable "opf_reservesEliteCount") - _rndElite];
@@ -153,10 +155,10 @@ while {true} do {
 			_obj = missionNamespace getVariable _obj;
 			COMMANDER_REINFORCE_PLAN_ID = (_obj select 0);
 			//We reinforce with AT LEAST 10 B1 Battledroids, and the others are random
-			if ((missionNamespace getVariable "opf_reservesRegularCount") >= 10) then {
+			if ((missionNamespace getVariable "opf_reservesRegularCount") >= _rndReinforceCount) then {
 				if (DEBUG) then {systemChat "Opfor Commander Decision: Reinforcing Objective"};
-				_obj set [2, (_obj select 2)+10];
-				missionNamespace setVariable ["opf_reservesRegularCount", (missionNamespace getVariable "opf_reservesRegularCount") - 10];
+				_obj set [2, (_obj select 2)+_rndReinforceCount];
+				missionNamespace setVariable ["opf_reservesRegularCount", (missionNamespace getVariable "opf_reservesRegularCount") - _rndReinforceCount];
 				_rndElite = floor (random (missionNamespace getVariable "opf_reservesEliteCount"));
 				_obj set [3, (_obj select 3)+_rndElite];
 				missionNamespace setVariable ["opf_reservesEliteCount", (missionNamespace getVariable "opf_reservesEliteCount") - _rndElite];
@@ -191,8 +193,8 @@ while {true} do {
 				COMMANDER_PLAN = "COUNTERATTACK";
 			}
 		};
-		default {
-			if (DEBUG) then {systemChat "Opfor Commander Decision: Planning To Reinforce Worst Objective"};
+		case (_rndReinforceLow < 50): {
+			if (DEBUG) then {systemChat "Opfor Commander Decision: Planning To Reinforce Weakest Objective"};
 			_low = 100;
 			{
 				_tmp = missionNamespace getVariable _x;
@@ -202,6 +204,10 @@ while {true} do {
 					COMMANDER_PLAN = "REINFORCE";
 				}
 			} forEach _opf_objs;
+		};
+		default {
+			if (DEBUG) then {systemChat "Opfor Commander Decision: Waiting For More Resources"};
+			//Do something here, maybe?
 		};
 	};
 }
