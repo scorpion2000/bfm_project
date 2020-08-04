@@ -20,18 +20,19 @@ if (!hasInterface && !isServer) then {
 		sleep 1.5;
 
 		"avgPerfMrk2" setMarkerType "mil_dot";
-		"avgPerfMrk2" setMarkerText format ["Server Performance: %1fps", diag_fps];
+		"avgPerfMrk2" setMarkerText format ["HC Performance: %1fps", diag_fps];
 	};
 };
 
 //Client
 if (hasInterface && !isServer) then {
-	_avgPerfMrk = createMarker ["avgPerfMrk3", [4,4092.05,12.000839233]];
+	//Clients have a local marker
+	_avgPerfMrk = createMarkerLocal ["avgPerfMrk3", [4,4092.05,12.000839233]];
 
 	while {true} do {
 		sleep 1.5;
 
 		"avgPerfMrk3" setMarkerType "mil_dot";
-		"avgPerfMrk3" setMarkerText format ["Server Performance: %1fps", diag_fps];
+		"avgPerfMrk3" setMarkerText format ["Client Performance: %1fps", diag_fps];
 	};
 };

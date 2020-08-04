@@ -1,7 +1,4 @@
 enableEnvironment [false, false];
-//This is kinda stupid, but there's no proper way to call a function
-//This is literally TELLING the SERVER to execut it for THIS CLIENT. Stupid.
-[] remoteExec ["bfm_fnc_perfMeter", player, false];
 
 [
 	laat_console, 
