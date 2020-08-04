@@ -7,7 +7,6 @@ class VintigoFunctions {
 		
 		class savePlayerStats {};
 		class loadPlayerStats {};
-		
 	};
 
 	class BFM_ServerPersistance 
@@ -19,7 +18,6 @@ class VintigoFunctions {
 		class loadOpforDetails {};
 		class saveOpforDetails {};
 		class handleReinforcements {};
-		
 	};
 
 	class BFM_spawners
@@ -27,7 +25,6 @@ class VintigoFunctions {
 		file = "functions\spawners";
 		
 		class laatSpawnBase {};
-		
 	};
 
 	class BFM_OPFOR_unitSpawners
@@ -38,7 +35,7 @@ class VintigoFunctions {
 		class createHelpForce {};
 		class createPatrol {};
 		class createObjForce {};
-		
+		class deleteObjForce {};
 	};
 
 	class BFM_Debug
@@ -46,7 +43,6 @@ class VintigoFunctions {
 		file = "functions\debug";
 		
 		class perfMeter {};
-		
 	};
 
 	class BFM_OPFOR_Commander
@@ -54,6 +50,5 @@ class VintigoFunctions {
 		file = "functions\opf_commander";
 		
 		class opforCommanderLogic {};
-		
 	};
 };

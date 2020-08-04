@@ -1,11 +1,11 @@
 opfObjAreas = [
-	["objective_0", spawnTriggerArea_obj_1],
-	["objective_1", spawnTriggerArea_obj_2],
-	["objective_2", spawnTriggerArea_obj_3],
-	["objective_3", spawnTriggerArea_obj_4],
-	["objective_4", spawnTriggerArea_obj_5],
-	["objective_5", spawnTriggerArea_obj_6],
-	["objective_6", spawnTriggerArea_obj_7]
+	["objective_0", spawnTriggerArea_obj_1, area_obj_1],
+	["objective_1", spawnTriggerArea_obj_2, area_obj_2],
+	["objective_2", spawnTriggerArea_obj_3, area_obj_3],
+	["objective_3", spawnTriggerArea_obj_4, area_obj_4],
+	["objective_4", spawnTriggerArea_obj_5, area_obj_5],
+	["objective_5", spawnTriggerArea_obj_6, area_obj_6],
+	["objective_6", spawnTriggerArea_obj_7, area_obj_7]
 ];
 
 opfObjAreas_INACTIVE = [];
@@ -24,18 +24,20 @@ while {true} do {
 		if (count(allPlayers inAreaArray _x) > 0) then {
 			opfObjAreas_INACTIVE = opfObjAreas_INACTIVE - [_x];
 			opfObjAreas_WORKING pushBack _x;
+			_area = area_obj_1;
 			_obj = _x;
 			{
-				if (_obj == (_x select 1)) then {
+				if (str (_obj) == str (_x select 1)) then {
 					_obj = (_x select 0);
+					_area = (_x select 2);
 				}
 			} forEach opfObjAreas;
 
 			//Move to WORKING list and spawn
 			if (isNil "BFM_HC1") then {
-				[_obj] remoteExec ["bfm_fnc_createObjForce", 2, false];
+				[_obj, _area, _x] remoteExec ["bfm_fnc_createObjForce", 2, false];
 			} else {
-				[_obj] remoteExec ["bfm_fnc_createObjForce", BFM_HC1, false];
+				[_obj, _area, _x] remoteExec ["bfm_fnc_createObjForce", BFM_HC1, false];
 			};
 		};
 		sleep 0.2;
@@ -46,18 +48,20 @@ while {true} do {
 			if (count(allPlayers inAreaArray _x) == 0) then {
 				opfObjAreas_ACTIVE = opfObjAreas_ACTIVE - [_x];
 				opfObjAreas_WORKING pushBack _x;
+				_area = area_obj_1;
 				_obj = _x;
 				{
-					if (_obj == (_x select 1)) then {
+					if (str (_obj) == str (_x select 1)) then {
 						_obj = (_x select 0);
+						_area = (_x select 2);
 					}
 				} forEach opfObjAreas;
 
-				//Move to WORKING list and spawn
+				//Move to WORKING list and despawn
 				if (isNil "BFM_HC1") then {
-					//[_obj] remoteExec ["bfm_fnc_createObjForce", 2, false];
+					[_obj, _area, _x] remoteExec ["bfm_fnc_deleteObjForce", 2, false];
 				} else {
-					//[_obj] remoteExec ["bfm_fnc_createObjForce", BFM_HC1, false];
+					[_obj, _area, _x] remoteExec ["bfm_fnc_deleteObjForce", BFM_HC1, false];
 				};
 			};
 			sleep 0.2;
