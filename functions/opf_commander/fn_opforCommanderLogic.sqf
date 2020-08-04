@@ -3,7 +3,10 @@ _inidbi = ["new", "BFM_OpforDetails"] call OO_INIDBI;
 _result = (["read", ["opfor_commander", "opfor_commander_logic_variables"]] call _inidbi);
 
 if ((str _result) != "false") then {
-
+	COMMANDER_PLAN = _result#0;
+	COMMANDER_REINFORCE_PLAN_ID = _result#1;
+	COMMANDER_PRESSURE = _result#2;
+	COMMANDER_PATROL_COUNT = _result#3;
 } else {
 	COMMANDER_PLAN = "NONE";
 	COMMANDER_REINFORCE_PLAN_ID = 0;
@@ -210,4 +213,11 @@ while {true} do {
 			//Do something here, maybe?
 		};
 	};
+	_saveArray = [
+		COMMANDER_PLAN,
+		COMMANDER_REINFORCE_PLAN_ID,
+		COMMANDER_PRESSURE,
+		COMMANDER_PATROL_COUNT
+	];
+	["write", ["opfor_settings", "opfor_commander_logic_variables", _saveArray]] call _inidbi;
 }
