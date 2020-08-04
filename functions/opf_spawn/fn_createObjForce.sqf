@@ -70,7 +70,7 @@ if (_obj#2 != 0 && count _milBuildingList > 0) then {
 			_allBuildingPos = [_b] call BIS_fnc_buildingPositions;
 			_pos = selectRandom _allBuildingPos;
 
-			if (count (nearestObjects [_pos, ["Man","Car","Tank"], 4]) > 0) then {
+			if (count (nearestObjects [_pos, ["Man","Car","Tank"], 3]) > 0) then {
 				_badSpawn = true;
 			} else {
 				_badSpawn = false;
