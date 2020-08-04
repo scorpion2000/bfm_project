@@ -11,6 +11,7 @@ opfObjAreas = [
 opfObjAreas_INACTIVE = [];
 opfObjAreas_ACTIVE = [];
 opfObjAreas_WORKING = [];
+activeObjLimit = 3;		//Note: That's the amount that can be active at once
 
 {
 	if !(((missionNamespace getVariable (_x select 0)) select 6)) then {
@@ -21,7 +22,7 @@ opfObjAreas_WORKING = [];
 while {true} do {
 	{
 		"areaCheckMarker" setMarkerPos (getPos _x);
-		if (count(allPlayers inAreaArray _x) > 0) then {
+		if (!isNil "opfObjAreas_INACTIVE" && count(allPlayers inAreaArray _x) > 0 && (count opfObjAreas_ACTIVE) < activeObjLimit && (count opfObjAreas_WORKING) == 0) then {
 			opfObjAreas_INACTIVE = opfObjAreas_INACTIVE - [_x];
 			opfObjAreas_WORKING pushBack _x;
 			_area = area_obj_1;
