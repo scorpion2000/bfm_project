@@ -9,6 +9,7 @@ sleep 1;
 [] remoteExec ["bfm_fnc_loadOpforDetails", 2, false];
 sleep 3;
 [] remoteExec ["bfm_fnc_opforCommanderLogic", 2, false];
+[] remoteExec ["bfm_fnc_loadPatrols", 2, false];
 
 //Prepairing HC Connection
 addMissionEventHandler ["HandleDisconnect",

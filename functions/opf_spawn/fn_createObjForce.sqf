@@ -90,6 +90,7 @@ if (_obj#2 != 0 && count _milBuildingList > 0) then {
 	};
 };
 
+//B1 Unit Patrolls
 while {_rem > 0} do {		//3 man squad, minimum
 	_posRnd = _spawnArea call BIS_fnc_randomPosTrigger;
 	_safePos = [_posRnd, 0, 100] call BIS_fnc_findSafePos;

@@ -63,9 +63,9 @@ while {true} do {
 					if (DEBUG) then {systemChat "Opfor Commander Decision: Reattempting Patrol Creation"};
 					if ((missionNamespace getVariable "opf_reservesRegularCount") >= 8) then {
 						if (isNil "BFM_HC1") then {
-							[] remoteExec ["bfm_fnc_createCounterAttack", 2, false];
+							[] remoteExec ["bfm_fnc_createPatrol", 2, false];
 						} else {
-							[] remoteExec ["bfm_fnc_createCounterAttack", BFM_HC1, false];
+							[] remoteExec ["bfm_fnc_createPatrol", BFM_HC1, false];
 						}
 					}  else {
 						COMMANDER_PLAN = "NONE";

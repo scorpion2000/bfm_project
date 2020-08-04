@@ -18,6 +18,8 @@ class VintigoFunctions {
 		class loadOpforDetails {};
 		class saveOpforDetails {};
 		class handleReinforcements {};
+		class loadPatrols {};
+		class savePatrol {};
 	};
 
 	class BFM_spawners

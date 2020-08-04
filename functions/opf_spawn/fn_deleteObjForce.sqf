@@ -5,14 +5,15 @@ if (DEBUG) then {systemChat "Spawn Complete, Moving Area To Active"};
 /*	I'm pretty fucking sure inAreaArray does not fucking work	*/
 
 {
-	if (_x inArea _triggerArea) then {
+	if (_x getVariable "obj" == _objective) then {
 		deleteVehicle _x;
 		sleep 0.05;
 	}
 } forEach allUnits inAreaArray _triggerArea;
 
 {
-	if (_x inArea _triggerArea && (typeOf _x == "ls_hmp" || typeOf _x == "ls_aat")) then {
+	if (_x getVariable "obj" == _objective && (typeOf _x == "ls_hmp" || typeOf _x == "ls_aat")) then {
+		{ _helicopter deleteVehicleCrew _x } forEach crew _x;
 		deleteVehicle _x;
 		sleep 0.05;
 	}
