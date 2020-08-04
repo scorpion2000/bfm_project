@@ -46,7 +46,7 @@ while {true} do {
 	if (!isNil "opfObjAreas_ACTIVE") then {
 		{
 			"areaCheckMarker2" setMarkerPos (getPos _x);
-			if (count(allPlayers inAreaArray _x) == 0) then {
+			if (count (allPlayers inAreaArray _x) < 1 && (count opfObjAreas_WORKING) == 0) then {
 				opfObjAreas_ACTIVE = opfObjAreas_ACTIVE - [_x];
 				opfObjAreas_WORKING pushBack _x;
 				_area = area_obj_1;

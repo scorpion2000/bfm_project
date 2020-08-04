@@ -2,13 +2,17 @@ params ["_objective", "_spawnArea", "_triggerArea"];
 
 if (DEBUG) then {systemChat "Spawn Complete, Moving Area To Active"};
 
+/*	I'm pretty fucking sure inAreaArray does not fucking work	*/
+
 {
-	deleteVehicle _x;
-	sleep 0.05;
+	if (_x inArea _triggerArea) then {
+		deleteVehicle _x;
+		sleep 0.05;
+	}
 } forEach allUnits inAreaArray _triggerArea;
 
 {
-	if (typeOf _x == "ls_hmp" || typeOf _x == "ls_aat") then {
+	if (_x inArea _triggerArea && (typeOf _x == "ls_hmp" || typeOf _x == "ls_aat")) then {
 		deleteVehicle _x;
 		sleep 0.05;
 	}
