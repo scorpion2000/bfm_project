@@ -24,12 +24,19 @@ while {true} do {
 		if (count(allPlayers inAreaArray _x) > 0) then {
 			opfObjAreas_INACTIVE = opfObjAreas_INACTIVE - [_x];
 			opfObjAreas_WORKING pushBack _x;
+			_obj = _x;
+			{
+				if (_obj == (_x select 1)) then {
+					_obj = (_x select 0);
+				}
+			} forEach opfObjAreas;
+
 			//Move to WORKING list and spawn
 			if (isNil "BFM_HC1") then {
-				[] remoteExec ["bfm_fnc_createObjForce", 2, false];
+				[_obj] remoteExec ["bfm_fnc_createObjForce", 2, false];
 			} else {
-				[] remoteExec ["bfm_fnc_createObjForce", BFM_HC1, false];
-			}
+				[_obj] remoteExec ["bfm_fnc_createObjForce", BFM_HC1, false];
+			};
 		};
 		sleep 0.2;
 	} forEach opfObjAreas_INACTIVE;
@@ -38,8 +45,20 @@ while {true} do {
 			"areaCheckMarker2" setMarkerPos (getPos _x);
 			if (count(allPlayers inAreaArray _x) == 0) then {
 				opfObjAreas_ACTIVE = opfObjAreas_ACTIVE - [_x];
-				opfObjAreas_INACTIVE pushBack _x;
-				//Move to WORKING list and despawn
+				opfObjAreas_WORKING pushBack _x;
+				_obj = _x;
+				{
+					if (_obj == (_x select 1)) then {
+						_obj = (_x select 0);
+					}
+				} forEach opfObjAreas;
+
+				//Move to WORKING list and spawn
+				if (isNil "BFM_HC1") then {
+					//[_obj] remoteExec ["bfm_fnc_createObjForce", 2, false];
+				} else {
+					//[_obj] remoteExec ["bfm_fnc_createObjForce", BFM_HC1, false];
+				};
 			};
 			sleep 0.2;
 		} forEach opfObjAreas_ACTIVE;
