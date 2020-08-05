@@ -56,8 +56,7 @@ _milBuildingList = [];
 _stationaryB1 = floor ((_obj select 2) /2);
 _unitsToFill = count _milBuildingList * 3;	//Calculates with 3 units per building
 if (_unitsToFill <= _stationaryB1) then { _stationaryB1 = _unitsToFill };
-_obj set [2, ((_obj select 2) - _stationaryB1)];
-_rem = _obj#2;
+_rem = (_obj select 2) - _stationaryB1;
 
 //Create B1 droids inside buildings
 if (_obj#2 != 0 && count _milBuildingList > 0) then {
