@@ -13,7 +13,7 @@ if (isDedicated) then {
 
 //HC
 if (!hasInterface && !isServer) then {
-	_avgPerfMrk = createMarker ["avgPerfMrk2", [4,4092.05,6.000839233]];
+	_avgPerfMrk = createMarker ["avgPerfMrk2", [4,4092.05,30.000839233]];
 	if (DEBUG) then {systemChat "Creating HC Performance Monitor"};
 	"avgPerfMrk2" setMarkerType "mil_dot";
 
@@ -26,7 +26,7 @@ if (!hasInterface && !isServer) then {
 //Client
 if (hasInterface && !isServer) then {
 	//Clients have a local marker
-	_avgPerfMrk = createMarkerLocal ["avgPerfMrk3", [4,4092.05,12.000839233]];
+	_avgPerfMrk = createMarkerLocal ["avgPerfMrk3", [4,4092.05,60.000839233]];
 	if (DEBUG) then {systemChat "Creating Client Performance Monitor"};
 	"avgPerfMrk3" setMarkerType "mil_dot";
 
@@ -38,7 +38,7 @@ if (hasInterface && !isServer) then {
 
 //Client Server (hosted from editor, for example)
 if (hasInterface && isServer) then {
-	_avgPerfMrk = createMarker ["avgPerfMrk4", [4,4092.05,18.000839233]];
+	_avgPerfMrk = createMarker ["avgPerfMrk4", [4,4092.05,90.000839233]];
 	if (DEBUG) then {systemChat "Creating Local Performance Monitor"};
 	"avgPerfMrk4" setMarkerType "mil_dot";
 
