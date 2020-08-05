@@ -80,7 +80,7 @@ if (_obj#2 != 0 && count _milBuildingList > 0) then {
 		_unit setVariable ["obj", _objective];
 		_unit addEventHandler ["Killed", {
 			_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
-			_o set [2, ((_obj select 2) -1)];
+			_o set [2, ((_o select 2) -1)];
 			missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
 		}];
 		_unit disableAI "PATH";
@@ -99,7 +99,7 @@ while {_rem > 0} do {		//3 man squad, minimum
 	_sl setVariable ["obj", _objective];
 	_sl addEventHandler ["Killed", {
 		_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
-		_o set [2, ((_obj select 2) -1)];
+		_o set [2, ((_o select 2) -1)];
 		missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
 	}];
 	_rem = _rem -1;
@@ -110,7 +110,7 @@ while {_rem > 0} do {		//3 man squad, minimum
 			_unit setVariable ["obj", _objective];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
-				_o set [2, ((_obj select 2) -1)];
+				_o set [2, ((_o select 2) -1)];
 				missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
 			}];
 			_rem = _rem -1;
@@ -143,7 +143,7 @@ if (_obj#4 != 0) then {
 		_tank setVariable ["obj", _objective];
 		_tank addEventHandler ["Killed", {
 			_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
-			_o set [4, ((_obj select 4) -1)];
+			_o set [4, ((_o select 4) -1)];
 			missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
 		}];
 		createVehicleCrew _tank;
@@ -163,7 +163,7 @@ if (_obj#5 != 0) then {
 		_gs setVariable ["obj", _objective];
 		_gs addEventHandler ["Killed", {
 			_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
-			_o set [5, ((_obj select 5) -1)];
+			_o set [5, ((_o select 5) -1)];
 			missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
 		}];
 		createVehicleCrew _gs;
@@ -186,7 +186,7 @@ if (_obj#3 != 0) then {
 			_unit setVariable ["obj", _objective];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
-				_o set [3, ((_obj select 3) -1)];
+				_o set [3, ((_o select 3) -1)];
 				missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
 			}];
 			sleep 0.1;
@@ -222,7 +222,7 @@ if (_obj#3 != 0) then {
 			_unit setVariable ["obj", _objective];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
-				_o set [3, ((_obj select 3) -1)];
+				_o set [3, ((_o select 3) -1)];
 				missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
 			}];
 			_unit disableAI "PATH";

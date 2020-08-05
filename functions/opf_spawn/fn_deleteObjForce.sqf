@@ -13,8 +13,9 @@ if (DEBUG) then {systemChat "Spawn Complete, Moving Area To Active"};
 
 {
 	if (_x getVariable "obj" == _objective && (typeOf _x == "ls_hmp" || typeOf _x == "ls_aat")) then {
-		{ _helicopter deleteVehicleCrew _x } forEach crew _x;
-		deleteVehicle _x;
+		_veh = _x;
+		{ _veh deleteVehicleCrew _x } forEach crew _x;
+		deleteVehicle _veh;
 		sleep 0.05;
 	}
 } forEach vehicles inAreaArray _triggerArea;
