@@ -1,6 +1,7 @@
 _b1c = missionNamespace getVariable "opf_reservesRegularCount";
+_b1c = ceil (_b1c / 2);
 if (_b1c > 8) then {
-	_b1c = floor random (_b1c) +8;
+	_b1c = floor random (_b1c -8) +8;
 };
 
 missionNamespace setVariable ["opf_reservesRegularCount", ((missionNamespace getVariable "opf_reservesRegularCount") - _b1c)];
@@ -69,4 +70,4 @@ sleep 0.1;
 
 missionNamespace setVariable [str _sl, [_b1c, _wayPoints, getPos _sl]];
 
-[(str _sl)] remoteExec ["bfm_fnc_savePatrol", 2, false];
+[(str _sl), _sl] remoteExec ["bfm_fnc_savePatrol", 2, false];
