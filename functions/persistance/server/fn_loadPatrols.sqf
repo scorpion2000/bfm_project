@@ -26,14 +26,20 @@ _B1UnitTypes = [
 	_sl = createGroup [east, true] createUnit ["SWLB_b1_officer_base", (_result select 2), [], 0, "CAN_COLLIDE"];
 	_sl setVariable ["patrolTo", str (_sl)];
 	_sl addEventHandler ["Killed", {
-		missionNamespace setVariable [(_this select 0) getVariable "patrolTo", ((missionNamespace getVariable ((_this select 0) getVariable "patrolTo")) select 0)-1];
+		_o = missionNamespace getVariable (((_this select 0) getVariable "patrolTo"));
+		_c = ((missionNamespace getVariable (((_this select 0) getVariable "patrolTo")) select 0))-1;
+		_o set [0, _c];
+		missionNamespace setVariable [(_this select 0) getVariable "patrolTo", _o];
 	}];
 	sleep 0.1;
 	for "_i" from 1 to (_b1c -1) do {
 		_unit = group _sl createUnit [selectRandom _B1UnitTypes, (_result select 2), [], 0, "CAN_COLLIDE"];
 		_unit setVariable ["patrolTo", str (_sl)];
 		_unit addEventHandler ["Killed", {
-			missionNamespace setVariable [(_this select 0) getVariable "patrolTo", ((missionNamespace getVariable ((_this select 0) getVariable "patrolTo")) select 0)-1];
+			_o = missionNamespace getVariable (((_this select 0) getVariable "patrolTo"));
+			_c = ((missionNamespace getVariable (((_this select 0) getVariable "patrolTo")) select 0))-1;
+			_o set [0, _c];
+			missionNamespace setVariable [(_this select 0) getVariable "patrolTo", _o];
 		}];
 		sleep 0.1;
 	};
