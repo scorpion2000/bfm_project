@@ -4,6 +4,11 @@ if (_b1c > 8) then {
 	_b1c = floor random (_b1c -8) +8;
 };
 
+//Patrol hardcap
+if (_b1c > 14) then {
+	_b1c = 14;
+};
+
 missionNamespace setVariable ["opf_reservesRegularCount", ((missionNamespace getVariable "opf_reservesRegularCount") - _b1c)];
 
 _B1UnitTypes = [
