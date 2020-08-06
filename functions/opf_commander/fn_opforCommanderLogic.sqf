@@ -37,8 +37,8 @@ while {true} do {
 
 	switch (true) do {
 		case (count (opfObjAreas_ACTIVE) > 0 && COMMANDER_PLAN == "NONE"): { 
-			if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting Help Force Creation"};
-			if ((missionNamespace getVariable "opf_reservesRegularCount") >= 20) then {
+			if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting To Send Reinforcements"};
+			if ((missionNamespace getVariable "opf_reservesRegularCount") >= 15) then {
 				//Counterattack force needs at least 15 B1 Battledroids
 				//Assemble help force
 				_helpForce = [
@@ -66,13 +66,14 @@ while {true} do {
 							[] remoteExec ["bfm_fnc_createPatrol", 2, false];
 						} else {
 							[] remoteExec ["bfm_fnc_createPatrol", BFM_HC1, false];
-						}
+						};
+						COMMANDER_PATROL_COUNT = COMMANDER_PATROL_COUNT +1;
 					}  else {
 						COMMANDER_PLAN = "NONE";
 					};
 				};
 				case "HELP": {
-					if (DEBUG) then {systemChat "Opfor Commander Decision: Reattempting Help Force Creation"};
+					if (DEBUG) then {systemChat "Opfor Commander Decision: Reattempting To Send Reinforcements"};
 					if (!isNil "opfObjAreas_ACTIVE") then {
 						if ((missionNamespace getVariable "opf_reservesRegularCount") >= 15) then {
 							if (isNil "BFM_HC1") then {
@@ -90,7 +91,7 @@ while {true} do {
 				case "COUNTERATTACK": {
 					if (DEBUG) then {systemChat "Opfor Commander Decision: Reattempting Counterattack Creation"};
 					if ((missionNamespace getVariable "opf_reservesRegularCount") >= 20) then {
-						//Help force needs at least 20 B1 Battledroids
+						//Help force needs at least 15 B1 Battledroids
 						//Assemble help force
 						_caForce = [
 							20,
@@ -147,7 +148,8 @@ while {true} do {
 					[] remoteExec ["bfm_fnc_createPatrol", 2, false];
 				} else {
 					[] remoteExec ["bfm_fnc_createPatrol", BFM_HC1, false];
-				}
+				};
+				COMMANDER_PATROL_COUNT = COMMANDER_PATROL_COUNT +1;
 			} else {
 				COMMANDER_PLAN = "PATROL";
 			};
