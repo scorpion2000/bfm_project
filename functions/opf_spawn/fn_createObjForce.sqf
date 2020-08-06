@@ -45,7 +45,7 @@ _milBuildingList = [];
 		_EdenSubCat = getText( configFile >> "CfgEditorSubCategories" >> _EdenSubCat >> "displayName" ); 
 	};
 
-	if (_EdenSubCat == "Military" && count _allBuildingPos != 0) then {
+	if (_EdenSubCat == "Military" && count _allBuildingPos > 0) then {
 		_milBuildingList pushBack _x;
 	};
 } forEach nearestObjects [_spawnArea, ["Building", "House"], 350];
@@ -54,7 +54,7 @@ _milBuildingList = [];
 //Calculates how many droids to spawn inside buildings
 //It generally takes half the B1s, but it gets reduced with low applicable building count
 _stationaryB1 = floor ((_obj select 2) /2);
-_unitsToFill = count _milBuildingList * 3;	//Calculates with 3 units per building
+_unitsToFill = floor (count _milBuildingList * 3);	//Calculates with 3 units per building
 if (_unitsToFill <= _stationaryB1) then { _stationaryB1 = _unitsToFill };
 _rem = (_obj select 2) - _stationaryB1;
 
@@ -64,7 +64,8 @@ if (_obj#2 != 0 && count _milBuildingList > 0) then {
 	for "_i" from 1 to _stationaryB1 do {
 		_pos = [];
 		_badSpawn = true;
-		while {_badSpawn} do {
+		_j = 0;
+		while {_badSpawn && _j < 20} do {
 			_b = selectRandom _milBuildingList;
 			_allBuildingPos = [_b] call BIS_fnc_buildingPositions;
 			_pos = selectRandom _allBuildingPos;
@@ -73,19 +74,24 @@ if (_obj#2 != 0 && count _milBuildingList > 0) then {
 				_badSpawn = true;
 			} else {
 				_badSpawn = false;
+				_j = _j +1;
 			};
 		};
-		_unit = _grp createUnit [selectRandom _B1UnitTypes, _pos, [], 0, "CAN_COLLIDE"];
-		_unit setVariable ["obj", _objective];
-		_unit addEventHandler ["Killed", {
-			_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
-			_o set [2, ((_o select 2) -1)];
-			missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
-		}];
-		_unit disableAI "PATH";
-		_unit setUnitPos "UP";
-		_unit setDir random 360;
-		sleep 0.1;
+		if (!_badSpawn) then {
+			_unit = _grp createUnit [selectRandom _B1UnitTypes, _pos, [], 0, "CAN_COLLIDE"];
+			_unit setVariable ["obj", _objective];
+			_unit addEventHandler ["Killed", {
+				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
+				_o set [2, ((_o select 2) -1)];
+				missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
+			}];
+			_unit disableAI "PATH";
+			_unit setUnitPos "UP";
+			_unit setDir random 360;
+			sleep 0.1;
+		} else {
+			_rem = _rem +1;
+		}
 	};
 };
 
