@@ -65,7 +65,7 @@ while {true} do {
 					[_obj, _area, _x] remoteExec ["bfm_fnc_deleteObjForce", BFM_HC1, false];
 				};
 			};
-			sleep 0.2;
+			sleep 0.15;
 		} forEach opfObjAreas_ACTIVE;
 	}
 }
