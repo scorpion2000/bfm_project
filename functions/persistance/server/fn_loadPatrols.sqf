@@ -7,13 +7,21 @@ _B1UnitTypes = [
 	"SWLB_b1_base",
 	"SWLB_b1_base",
 	"SWLB_b1_base",
+	"SWLB_b1_base",
+	"SWLB_b1_base",
+	"SWLB_b1_base",
 	"SWLB_b1_at_base",
+	"SWLB_b1_at_base",
+	"SWLB_b1_AA_base",
 	"SWLB_b1_AA_base",
 	"SWLB_b1_AA_base",
 	"SWLB_b1_grenadier_base",
 	"SWLB_b1_heavy_base",
 	"SWLB_b1_heavy_base",
 	"SWLB_b1_heavy_base",
+	"SWLB_b1_heavy_base",
+	"SWLB_b1_heavy_base",
+	"SWLB_b1_marksman_base",
 	"SWLB_b1_marksman_base"
 ];
 
