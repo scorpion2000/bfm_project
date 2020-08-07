@@ -20,13 +20,21 @@ _B1UnitTypes = [
 	"SWLB_b1_base",
 	"SWLB_b1_base",
 	"SWLB_b1_base",
+	"SWLB_b1_base",
+	"SWLB_b1_base",
+	"SWLB_b1_base",
 	"SWLB_b1_at_base",
+	"SWLB_b1_at_base",
+	"SWLB_b1_AA_base",
 	"SWLB_b1_AA_base",
 	"SWLB_b1_AA_base",
 	"SWLB_b1_grenadier_base",
 	"SWLB_b1_heavy_base",
 	"SWLB_b1_heavy_base",
 	"SWLB_b1_heavy_base",
+	"SWLB_b1_heavy_base",
+	"SWLB_b1_heavy_base",
+	"SWLB_b1_marksman_base",
 	"SWLB_b1_marksman_base"
 ];
 _milBuildingList = [];
@@ -238,7 +246,7 @@ if (_obj#3 != 0) then {
 	};
 };
 
-if (DEBUG) then {systemChat "Spawn Complete, Moving Area To Active"};
+if (DEBUG) then {systemChat format ["Spawn Complete, Moving %1 To Active", _objective]};
 
 opfObjAreas_WORKING = opfObjAreas_WORKING - [_triggerArea];
 opfObjAreas_ACTIVE pushBack _triggerArea;
