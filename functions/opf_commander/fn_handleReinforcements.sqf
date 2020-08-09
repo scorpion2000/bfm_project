@@ -15,12 +15,12 @@ while {true} do {
 				missionNamespace setVariable ["opf_reservesEliteCount", ((missionNamespace getVariable "opf_reservesEliteCount") + (floor (random 2) +1))];
 				if (DEBUG) then { systemChat "Creating Reinforcements For Opfor Commander; Type Elite" };
 			};
-			case (_rnd >= 80 && _rnd < 90): {
+			case (_rnd >= 80 && _rnd < 95): {
 				//Tank
 				missionNamespace setVariable ["opf_reservesTankCount", ((missionNamespace getVariable "opf_reservesTankCount") + (floor (random 1) +1))];
 				if (DEBUG) then { systemChat "Creating Reinforcements For Opfor Commander; Type Tank" };
 			};
-			case (_rnd >= 90): {
+			case (_rnd >= 95): {
 				//Gunship
 				missionNamespace setVariable ["opf_reservesHeliCount", ((missionNamespace getVariable "opf_reservesHeliCount") + (floor (random 1) +1))];
 				if (DEBUG) then { systemChat "Creating Reinforcements For Opfor Commander; Type Heli" };
