@@ -17,9 +17,10 @@ class VintigoFunctions {
 		class saveObjectiveDetails {};
 		class loadOpforDetails {};
 		class saveOpforDetails {};
-		class handleReinforcements {};
 		class loadPatrols {};
 		class savePatrol {};
+		class saveBuildingDamage {};
+		class loadBuildingDamage {};
 	};
 
 	class BFM_spawners
@@ -38,6 +39,7 @@ class VintigoFunctions {
 		class createPatrol {};
 		class createObjForce {};
 		class deleteObjForce {};
+		class createReinforcements {};
 	};
 
 	class BFM_Debug
@@ -52,5 +54,6 @@ class VintigoFunctions {
 		file = "functions\opf_commander";
 		
 		class opforCommanderLogic {};
+		class handleReinforcements {};
 	};
 };

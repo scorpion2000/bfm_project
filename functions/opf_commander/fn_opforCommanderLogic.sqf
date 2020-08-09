@@ -1,16 +1,14 @@
 //Some commander logic variables
 _inidbi = ["new", "BFM_OpforDetails"] call OO_INIDBI;
-_result = (["read", ["opfor_commander", "opfor_commander_logic_variables"]] call _inidbi);
+_result = (["read", ["opfor_settings", "opfor_commander_logic_variables"]] call _inidbi);
 
 if ((str _result) != "false") then {
 	COMMANDER_PLAN = _result#0;
 	COMMANDER_REINFORCE_PLAN_ID = _result#1;
-	COMMANDER_PRESSURE = _result#2;
-	COMMANDER_PATROL_COUNT = _result#3;
+	COMMANDER_PATROL_COUNT = _result#2;
 } else {
 	COMMANDER_PLAN = "NONE";
 	COMMANDER_REINFORCE_PLAN_ID = 0;
-	COMMANDER_PRESSURE = 0;		//Pressure is defined by the amount of objectives captured by bluefor. It affects reinforcing and counterattack
 	COMMANDER_PATROL_COUNT = 0;
 };
 
@@ -28,29 +26,27 @@ _opf_objs = [
 
 //Actual commander logic start
 while {true} do {
-	sleep 45;	//Not sure how often this should update. 45s seems reasonable?
+	sleep 45;	//Not sure how often the commander logic should run. 45s seems reasonable?
 	_rndPatrol = floor (random 100);
 	_rndReinforce = floor (random 100);
 	_rndCounterAttack = floor (random 100);
 	_rndReinforceLow = floor (random 100);
 	_rndReinforceCount = floor (random 10);
+	_rndReinforceHelp = floor (random 100);
+	_ctb = ((count (opfObjAreas_REINF) / count (opfObjAreas)) *100) -5;
+
 
 	switch (true) do {
-		case (count (opfObjAreas_ACTIVE) > 0 && COMMANDER_PLAN == "NONE"): { 
+		case (count (opfObjAreas_REINF) > 0 && _rndReinforceHelp >= _ctb && COMMANDER_PLAN == "NONE"): { 
 			if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting To Send Reinforcements"};
 			if ((missionNamespace getVariable "opf_reservesRegularCount") >= 15) then {
-				//Counterattack force needs at least 15 B1 Battledroids
-				//Assemble help force
-				_helpForce = [
-					15,
-					floor ((missionNamespace getVariable "opf_reservesEliteCount") /2),
-					floor ((missionNamespace getVariable "opf_reservesTankCount") /2),
-					floor ((missionNamespace getVariable "opf_reservesHeliCount") /2)
-				];
+				//Reinforcement force needs at least 15 B1 Battledroids
+				//Assemble reinforcements
+				_obj = selectRandom opfObjAreas_REINF;
 				if (isNil "BFM_HC1") then {
-					[_helpForce] remoteExec ["bfm_fnc_createHelpForce", 2, false];
+					[_obj] remoteExec ["bfm_fnc_createReinforcements", 2, false];
 				} else {
-					[_helpForce] remoteExec ["bfm_fnc_createHelpForce", BFM_HC1, false];
+					[_obj] remoteExec ["bfm_fnc_createReinforcements", BFM_HC1, false];
 				};
 				if (DEBUG) then {systemChat "Opfor Commander Decision: Creating Help Force"};
 			} else {
@@ -76,10 +72,11 @@ while {true} do {
 					if (DEBUG) then {systemChat "Opfor Commander Decision: Reattempting To Send Reinforcements"};
 					if (!isNil "opfObjAreas_ACTIVE") then {
 						if ((missionNamespace getVariable "opf_reservesRegularCount") >= 15) then {
+							_obj = selectRandom opfObjAreas_REINF;
 							if (isNil "BFM_HC1") then {
-								[] remoteExec ["bfm_fnc_createHelpForce", 2, false];
+								[_obj] remoteExec ["bfm_fnc_createReinforcements", 2, false];
 							} else {
-								[] remoteExec ["bfm_fnc_createHelpForce", BFM_HC1, false];
+								[_obj] remoteExec ["bfm_fnc_createReinforcements", BFM_HC1, false];
 							}
 						}  else {
 							COMMANDER_PLAN = "HELP";
@@ -218,7 +215,6 @@ while {true} do {
 	_saveArray = [
 		COMMANDER_PLAN,
 		COMMANDER_REINFORCE_PLAN_ID,
-		COMMANDER_PRESSURE,
 		COMMANDER_PATROL_COUNT
 	];
 	["write", ["opfor_settings", "opfor_commander_logic_variables", _saveArray]] call _inidbi;
