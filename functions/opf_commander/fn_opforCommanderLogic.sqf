@@ -119,6 +119,8 @@ while {true} do {
 								_objName = _x;
 							};
 						} forEach _opf_objs;
+						_rndUnitCount = floor random ((missionNamespace getVariable "opf_reservesRegularCount") - _rndReinforceCount);
+						_rndReinforceCount = _rndReinforceCount + _rndUnitCount;
 						_obj set [2, ((_obj select 2)+_rndReinforceCount)];
 						missionNamespace setVariable ["opf_reservesRegularCount", (missionNamespace getVariable "opf_reservesRegularCount") - _rndReinforceCount];
 						_rndElite = floor (random (missionNamespace getVariable "opf_reservesEliteCount"));
@@ -179,7 +181,7 @@ while {true} do {
 				COMMANDER_PLAN = "PATROL";
 			};
 		};
-		case (_rndReinforce < 40): {
+		case (_rndReinforce < (20 + ((missionNamespace getVariable "opf_reservesRegularCount") /2))): {
 			if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting Reinforcement"};
 			_obj = selectRandom _opf_objs;
 			_obj = missionNamespace getVariable _obj;
@@ -203,7 +205,7 @@ while {true} do {
 				COMMANDER_PLAN = "REINFORCE";
 			}
 		};
-		case (_rndCounterAttack < 10): { 
+		case (_rndCounterAttack < 5): { 
 			if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting Counterattack"};
 			if ((missionNamespace getVariable "opf_reservesRegularCount") >= 20) then {
 				//Help force needs at least 20 B1 Battledroids
@@ -223,7 +225,7 @@ while {true} do {
 				COMMANDER_PLAN = "COUNTERATTACK";
 			}
 		};
-		case (_rndReinforceLow < 50): {
+		case (_rndReinforceLow < (25 + (missionNamespace getVariable "opf_reservesRegularCount")) || (missionNamespace getVariable "opf_reservesRegularCount") > 45): {
 			if (DEBUG) then {systemChat "Opfor Commander Decision: Planning To Reinforce Weakest Objective"};
 			_low = 100;
 			{
