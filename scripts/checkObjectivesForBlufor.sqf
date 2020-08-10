@@ -12,7 +12,7 @@ opfObjAreas_INACTIVE = [];
 opfObjAreas_ACTIVE = [];
 opfObjAreas_WORKING = [];
 opfObjAreas_REINF = [];
-opfObjAreas_CAPTURED = [];
+opfObjAreas_EXCESS = [];
 activeObjLimit = 3;		//Note: That's the amount that can be active at once
 
 {
@@ -24,17 +24,23 @@ activeObjLimit = 3;		//Note: That's the amount that can be active at once
 while {true} do {
 	{
 		"areaCheckMarker" setMarkerPos (getPos _x);
+		_area = area_obj_1;
+		_obj = _x;
+		{
+			if (str (_obj) == str (_x select 1)) then {
+				_obj = (_x select 0);
+				_area = (_x select 2);
+			}
+		} forEach opfObjAreas;
+
+		//Checking for excess units. Over 100 is pretty much excess
+		if (((missionNamespace getVariable _obj) select 2) > 100 && !(_obj in opfObjAreas_EXCESS)) then {
+			opfObjAreas_EXCESS pushBack _obj;
+		};
+
 		if (!isNil "opfObjAreas_INACTIVE" && count(allPlayers inAreaArray _x) > 0 && (count opfObjAreas_ACTIVE) < activeObjLimit && (count opfObjAreas_WORKING) == 0) then {
 			opfObjAreas_INACTIVE = opfObjAreas_INACTIVE - [_x];
 			opfObjAreas_WORKING pushBack _x;
-			_area = area_obj_1;
-			_obj = _x;
-			{
-				if (str (_obj) == str (_x select 1)) then {
-					_obj = (_x select 0);
-					_area = (_x select 2);
-				}
-			} forEach opfObjAreas;
 
 			//Move to WORKING list and spawn
 			if (isNil "BFM_HC1") then {
