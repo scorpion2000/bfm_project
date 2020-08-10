@@ -12,6 +12,7 @@ opfObjAreas_INACTIVE = [];
 opfObjAreas_ACTIVE = [];
 opfObjAreas_WORKING = [];
 opfObjAreas_REINF = [];
+opfObjAreas_CAPTURED = [];
 opfObjAreas_EXCESS = [];
 activeObjLimit = 3;		//Note: That's the amount that can be active at once
 
