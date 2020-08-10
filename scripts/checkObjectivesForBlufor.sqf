@@ -12,6 +12,7 @@ opfObjAreas_INACTIVE = [];
 opfObjAreas_ACTIVE = [];
 opfObjAreas_WORKING = [];
 opfObjAreas_REINF = [];
+opfObjAreas_CAPTURED = [];
 activeObjLimit = 3;		//Note: That's the amount that can be active at once
 
 {
@@ -74,7 +75,7 @@ while {true} do {
 					if (_x getVariable "obj" == _obj) then {
 						_opforCount = _opforCount +1;
 					};
-				} forEach allUnits inAreaArray _triggerArea;
+				} forEach allUnits inAreaArray _x;
 
 				if ((_bluforCount *2) > _opforCount) then {
 					opfObjAreas_REINF pushBack _obj;
@@ -83,7 +84,15 @@ while {true} do {
 						opfObjAreas_REINF = opfObjAreas_REINF - [_obj];
 					}
 				};
-			sleep 0.15;
+
+				if (_bluforCount > _opforCount) then {
+					_o = missionNamespace getVariable _obj;
+					_o set [6, true];
+					missionNamespace setVariable [_obj, _o];
+					opfObjAreas_ACTIVE = opfObjAreas_ACTIVE - [_x];
+					opfObjAreas_CAPTURED pushBack _x;
+				};
+				sleep 0.15;
 			};
 		} forEach opfObjAreas_ACTIVE;
 	}
