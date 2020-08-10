@@ -6,10 +6,12 @@ if ((str _result) != "false") then {
 	COMMANDER_PLAN = _result#0;
 	COMMANDER_REINFORCE_PLAN_ID = _result#1;
 	COMMANDER_PATROL_COUNT = _result#2;
+	COMMANDER_REDISTRIBUTION_COOLDOWN = _result#3;
 } else {
 	COMMANDER_PLAN = "NONE";
 	COMMANDER_REINFORCE_PLAN_ID = 0;
 	COMMANDER_PATROL_COUNT = 0;
+	COMMANDER_REDISTRIBUTION_COOLDOWN = 0;
 };
 
 if (DEBUG) then {systemChat "Opfor Commander Initialized"};
@@ -138,7 +140,7 @@ while {true} do {
 				default { COMMANDER_PLAN = "NONE" };	//In case it's fucked up, we reset it
 			};
 		};
-		case (count opfObjAreas_EXCESS > 1): {
+		case (count opfObjAreas_EXCESS > 1 && COMMANDER_REDISTRIBUTION_COOLDOWN == 0): {
 			if (DEBUG) then {systemChat "Redistributing B1 Battledroids to weakest objective"};
 
 			//Get weakest objective
@@ -162,6 +164,7 @@ while {true} do {
 			_weak set [2, (_weak select 2) + _B1Count];
 			missionNamespace setVariable [_strongSelect, _strong];
 			missionNamespace setVariable [_weakSelect, _weak];
+			COMMANDER_REDISTRIBUTION_COOLDOWN = 2;
 		};
 		case (COMMANDER_PATROL_COUNT < count (opfObjAreas_INACTIVE) && _rndPatrol < 30): { 
 			if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting Patrol Creation"};
@@ -237,10 +240,14 @@ while {true} do {
 			//Do something here, maybe?
 		};
 	};
+	if (COMMANDER_REDISTRIBUTION_COOLDOWN > 0) then {
+		COMMANDER_REDISTRIBUTION_COOLDOWN = COMMANDER_REDISTRIBUTION_COOLDOWN -1;
+	};
 	_saveArray = [
 		COMMANDER_PLAN,
 		COMMANDER_REINFORCE_PLAN_ID,
-		COMMANDER_PATROL_COUNT
+		COMMANDER_PATROL_COUNT,
+		COMMANDER_REDISTRIBUTION_COOLDOWN
 	];
 	["write", ["opfor_settings", "opfor_commander_logic_variables", _saveArray]] call _inidbi;
 }
