@@ -45,6 +45,10 @@ if ((str _result) != "false") then {
 	} forEach _medical;
 
 	_player setUnitLoadout (_result#6);
+	[true] remoteExec ["bfm_fnc_welcomeMessage", _player, false];
 } else {
 	[_player] remoteExec ["bfm_fnc_savePlayerStats", 2, false];
+	[false] remoteExec ["bfm_fnc_welcomeMessage", _player, false];
+	_player setPos getPos bluforBaseSpawnPoint vectorAdd [random [-3, 0, 3], random [-3, 0, 3], 0];
+	_player setDir 90;
 }

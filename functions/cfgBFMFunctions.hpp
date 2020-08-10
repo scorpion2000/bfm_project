@@ -1,5 +1,12 @@
 class VintigoFunctions {
 	tag = "BFM";
+
+	class BFM_Random
+	{
+		file = "functions";
+		
+		class deployPlayer {};
+	};
 	
 	class BFM_PlayerPersistance 
 	{
@@ -7,6 +14,7 @@ class VintigoFunctions {
 		
 		class savePlayerStats {};
 		class loadPlayerStats {};
+		class welcomeMessage {};
 	};
 
 	class BFM_ServerPersistance 
