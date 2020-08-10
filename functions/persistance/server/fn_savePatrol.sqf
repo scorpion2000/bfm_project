@@ -12,4 +12,5 @@ while {(_p select 0) > 0} do {
 
 if ((_p select 0) <= 0) then {
 	["deleteKey", ["opfor_patrols", _patrolName]] call _inidbi;
+	COMMANDER_PATROL_COUNT = COMMANDER_PATROL_COUNT -1;
 };
