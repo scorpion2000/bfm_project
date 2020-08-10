@@ -19,7 +19,10 @@ activeObjLimit = 3;		//Note: That's the amount that can be active at once
 {
 	if !(((missionNamespace getVariable (_x select 0)) select 6)) then {
 		opfObjAreas_INACTIVE pushBack (_x select 1);
-	}
+	};
+	if (((missionNamespace getVariable (_x select 0)) select 6)) then {
+		opfObjAreas_CAPTURED pushBack (_x select 1);
+	};
 } forEach opfObjAreas;
 
 while {true} do {
@@ -73,7 +76,17 @@ while {true} do {
 				} else {
 					[_obj, _area, _x] remoteExec ["bfm_fnc_deleteObjForce", BFM_HC1, false];
 				};
-
+				sleep 0.15;
+			} else {
+				_area = area_obj_1;
+				_obj = _x;
+				{
+					if (str (_obj) == str (_x select 1)) then {
+						_obj = (_x select 0);
+						_area = (_x select 2);
+					}
+				} forEach opfObjAreas;
+				
 				//Check if area needs reinforcements
 				//Note, this only accounts for players, blufor AI has no influence
 				_bluforCount = count (allPlayers inAreaArray _x);
@@ -83,6 +96,9 @@ while {true} do {
 						_opforCount = _opforCount +1;
 					};
 				} forEach allUnits inAreaArray _x;
+
+				systemChat str _bluforCount;
+				systemChat str _opforCount;
 
 				if ((_bluforCount *2) > _opforCount) then {
 					opfObjAreas_REINF pushBack _obj;
@@ -98,9 +114,11 @@ while {true} do {
 					missionNamespace setVariable [_obj, _o];
 					opfObjAreas_ACTIVE = opfObjAreas_ACTIVE - [_x];
 					opfObjAreas_CAPTURED pushBack _x;
+					if (_obj in opfObjAreas_REINF) then {
+						opfObjAreas_REINF = opfObjAreas_REINF - [_obj];
+					}
 				};
-				sleep 0.15;
-			};
+			}
 		} forEach opfObjAreas_ACTIVE;
 	}
 }
