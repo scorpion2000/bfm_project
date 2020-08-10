@@ -138,6 +138,31 @@ while {true} do {
 				default { COMMANDER_PLAN = "NONE" };	//In case it's fucked up, we reset it
 			};
 		};
+		case (count opfObjAreas_EXCESS > 1): {
+			if (DEBUG) then {systemChat "Redistributing B1 Battledroids to weakest objective"};
+
+			//Get weakest objective
+			_low = 100;
+			_weakSelect = "objective_0";
+			for "_i" from 0 to 6 do {
+				_o = missionName getVariable format ["objective_%1", _i];
+				if ((_o select 2) < _low) then {
+					_low = (_o select 2);
+					_weakSelect = format ["objective_%1", _i];
+				};
+			};
+
+			_strongSelect = selectRandom opfObjAreas_EXCESS;
+			_strong = missionName getVariable _strongSelect;
+			_weak = missionName getVariable _weakSelect;
+
+			_B1Count = floor (random (_strong select 2) -50);
+
+			_strong set [2, (_strong select 2) - _B1Count];
+			_weak set [2, (_weak select 2) + _B1Count];
+			missionNamespace setVariable [_strongSelect, _strong];
+			missionNamespace setVariable [_weakSelect, _weak];
+		};
 		case (COMMANDER_PATROL_COUNT < count (opfObjAreas_INACTIVE) && _rndPatrol < 30): { 
 			if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting Patrol Creation"};
 			if ((missionNamespace getVariable "opf_reservesRegularCount") >= 8) then {
