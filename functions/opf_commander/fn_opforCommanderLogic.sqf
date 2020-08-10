@@ -51,6 +51,7 @@ while {true} do {
 					[_obj] remoteExec ["bfm_fnc_createReinforcements", BFM_HC1, false];
 				};
 				if (DEBUG) then {systemChat "Opfor Commander Decision: Creating Help Force"};
+				COMMANDER_PLAN = "NONE";
 			} else {
 				COMMANDER_PLAN = "HELP";
 			};
@@ -66,6 +67,7 @@ while {true} do {
 							[] remoteExec ["bfm_fnc_createPatrol", BFM_HC1, false];
 						};
 						COMMANDER_PATROL_COUNT = COMMANDER_PATROL_COUNT +1;
+						COMMANDER_PLAN = "NONE";
 					}  else {
 						COMMANDER_PLAN = "NONE";
 					};
@@ -83,6 +85,7 @@ while {true} do {
 						}  else {
 							COMMANDER_PLAN = "HELP";
 						};
+						COMMANDER_PLAN = "NONE";
 					} else {
 						COMMANDER_PLAN = "NONE";
 					};
@@ -102,7 +105,8 @@ while {true} do {
 							[] remoteExec ["bfm_fnc_createCounterAttack", 2, false];
 						} else {
 							[] remoteExec ["bfm_fnc_createCounterAttack", BFM_HC1, false];
-						}
+						};
+						COMMANDER_PLAN = "NONE";
 					} else {
 						COMMANDER_PLAN = "NONE";
 					}
@@ -135,6 +139,7 @@ while {true} do {
 						missionNamespace setVariable [_objName, _obj];
 						[] remoteExec ["bfm_fnc_saveObjectiveDetails", 2, false];
 						[] remoteExec ["bfm_fnc_saveOpforDetails", 2, false];
+						COMMANDER_PLAN = "NONE";
 					} else {
 						COMMANDER_PLAN = "NONE";
 					}
