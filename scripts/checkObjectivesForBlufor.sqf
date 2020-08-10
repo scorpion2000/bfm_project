@@ -34,7 +34,7 @@ while {true} do {
 		} forEach opfObjAreas;
 
 		//Checking for excess units. Over 100 is pretty much excess
-		if (((missionNamespace getVariable _obj) select 2) > 100) then {
+		if (((missionNamespace getVariable _obj) select 2) > 100 && !(_obj in opfObjAreas_EXCESS)) then {
 			opfObjAreas_EXCESS pushBack _obj;
 		};
 
