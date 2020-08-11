@@ -14,29 +14,6 @@ _obj = missionNamespace getVariable _objective;
 
 if (DEBUG) then {systemChat format ["Spawning AI at %1", _obj#1]};
 
-_B1UnitTypes = [
-	"SWLB_b1_base",		//Some classnames appear multiple times to influence selection chance
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_at_base",
-	"SWLB_b1_at_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_grenadier_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_marksman_base",
-	"SWLB_b1_marksman_base"
-];
 _milBuildingList = [];
 
 {
@@ -86,7 +63,7 @@ if (_obj#2 != 0 && count _milBuildingList > 0) then {
 			};
 		};
 		if (!_badSpawn) then {
-			_unit = _grp createUnit [selectRandom _B1UnitTypes, _pos, [], 0, "CAN_COLLIDE"];
+			_unit = _grp createUnit [selectRandom B1UnitTypes, _pos, [], 0, "CAN_COLLIDE"];
 			_unit setVariable ["obj", _objective];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
@@ -108,7 +85,7 @@ while {_rem > 0} do {		//3 man squad, minimum
 	_posRnd = _spawnArea call BIS_fnc_randomPosTrigger;
 	_safePos = [_posRnd, 0, 100] call BIS_fnc_findSafePos;
 	
-	_sl = createGroup [east, true] createUnit ["SWLB_b1_officer_base", _safePos, [], 0, "CAN_COLLIDE"];
+	_sl = createGroup [east, true] createUnit ["ls_cis_b1_officer_base", _safePos, [], 0, "CAN_COLLIDE"];
 	_sl setVariable ["obj", _objective];
 	_sl addEventHandler ["Killed", {
 		_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
@@ -119,7 +96,7 @@ while {_rem > 0} do {		//3 man squad, minimum
 	sleep 0.1;
 	for "_i" from 1 to (floor (random 6) +2) do {
 		if (_rem > 0) then {	//Gotta make sure we don't spawn more than we have
-			_unit = group _sl createUnit [selectRandom _B1UnitTypes, _safePos, [], 0, "CAN_COLLIDE"];
+			_unit = group _sl createUnit [selectRandom B1UnitTypes, _safePos, [], 0, "CAN_COLLIDE"];
 			_unit setVariable ["obj", _objective];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
@@ -195,7 +172,7 @@ if (_obj#3 != 0) then {
 			_posRnd = _spawnArea call BIS_fnc_randomPosTrigger;
 			_safePos = [_posRnd, 0, 100] call BIS_fnc_findSafePos;
 			
-			_unit = createGroup [east, true] createUnit [selectRandom ["SWLB_BX_Commando", "SWLB_BX_Commando", "SWLB_BX_Commando", "SWLB_BX_Assassin"], _safePos, [], 0, "CAN_COLLIDE"];
+			_unit = createGroup [east, true] createUnit [selectRandom ["ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bxAssasin_specops"], _safePos, [], 0, "CAN_COLLIDE"];
 			_unit setVariable ["obj", _objective];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
@@ -231,7 +208,7 @@ if (_obj#3 != 0) then {
 					_badSpawn = false;
 				};
 			};
-			_unit = createGroup [east, true] createUnit [selectRandom ["SWLB_BX_Commando", "SWLB_BX_Commando", "SWLB_BX_Commando", "SWLB_BX_Assassin"], _pos, [], 0, "CAN_COLLIDE"];
+			_unit = createGroup [east, true] createUnit [selectRandom ["ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bxAssasin_specops"], _pos, [], 0, "CAN_COLLIDE"];
 			_unit setVariable ["obj", _objective];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");

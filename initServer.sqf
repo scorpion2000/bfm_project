@@ -1,5 +1,29 @@
 DEBUG = TRUE;	//Enables systemChat debug messages
 
+B1UnitTypes = [
+	"ls_cis_b1_base",		//Some classnames appear multiple times to influence selection chance
+	"ls_cis_b1_base",
+	"ls_cis_b1_base",
+	"ls_cis_b1_base",
+	"ls_cis_b1_base",
+	"ls_cis_b1_base",
+	"ls_cis_b1_base",
+	"ls_cis_b1_base",
+	"ls_cis_b1_at_base",
+	"ls_cis_b1_at_base",
+	"ls_cis_b1_AA_base",
+	"ls_cis_b1_AA_base",
+	"ls_cis_b1_AA_base",
+	"ls_cis_b1_grenadier_base",
+	"ls_cis_b1_heavy_base",
+	"ls_cis_b1_heavy_base",
+	"ls_cis_b1_heavy_base",
+	"ls_cis_b1_heavy_base",
+	"ls_cis_b1_heavy_base",
+	"ls_cis_b1_marksman_base",
+	"ls_cis_b1_marksman_base"
+];
+
 sleep 1;
 
 [] execVM "scripts\playerSave.sqf";

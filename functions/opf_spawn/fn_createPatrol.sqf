@@ -11,30 +11,6 @@ if (_b1c > 14) then {
 
 missionNamespace setVariable ["opf_reservesRegularCount", ((missionNamespace getVariable "opf_reservesRegularCount") - _b1c)];
 
-_B1UnitTypes = [
-	"SWLB_b1_base",		//Some classnames appear multiple times to influence selection chance
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_at_base",
-	"SWLB_b1_at_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_grenadier_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_marksman_base",
-	"SWLB_b1_marksman_base"
-];
-
 _locations = [];
 
 {
@@ -57,7 +33,7 @@ _sl addEventHandler ["Killed", {
 }];
 sleep 0.1;
 for "_i" from 1 to (_b1c -1) do {
-	_unit = group _sl createUnit [selectRandom _B1UnitTypes, _l, [], 0, "CAN_COLLIDE"];
+	_unit = group _sl createUnit [selectRandom B1UnitTypes, _l, [], 0, "CAN_COLLIDE"];
 	_unit setVariable ["patrolTo", str (_sl)];
 	_unit addEventHandler ["Killed", {
 		_o = missionNamespace getVariable (((_this select 0) getVariable "patrolTo"));

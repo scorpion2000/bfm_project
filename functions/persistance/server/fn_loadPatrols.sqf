@@ -1,30 +1,6 @@
 _inidbi = ["new", "BFM_OpforDetails"] call OO_INIDBI;
 _keysArray = ["getKeys", "opfor_patrols"] call _inidbi;
 
-_B1UnitTypes = [
-	"SWLB_b1_base",		//Some classnames appear multiple times to influence selection chance
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_at_base",
-	"SWLB_b1_at_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_grenadier_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_marksman_base",
-	"SWLB_b1_marksman_base"
-];
-
 {
 	_result = (["read", ["opfor_patrols", _x]] call _inidbi);
 	["deleteKey", ["opfor_patrols", _x]] call _inidbi;
@@ -42,7 +18,7 @@ _B1UnitTypes = [
 		}];
 		sleep 0.1;
 		for "_i" from 1 to (_b1c -1) do {
-			_unit = group _sl createUnit [selectRandom _B1UnitTypes, (_result select 2), [], 0, "CAN_COLLIDE"];
+			_unit = group _sl createUnit [selectRandom B1UnitTypes, (_result select 2), [], 0, "CAN_COLLIDE"];
 			_unit setVariable ["patrolTo", str (_sl)];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable (((_this select 0) getVariable "patrolTo"));

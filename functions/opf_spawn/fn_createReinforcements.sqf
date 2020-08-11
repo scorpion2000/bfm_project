@@ -7,30 +7,6 @@ _obj = [];
 	}
 } forEach opfObjAreas;
 
-_B1UnitTypes = [
-	"SWLB_b1_base",		//Some classnames appear multiple times to influence selection chance
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_base",
-	"SWLB_b1_at_base",
-	"SWLB_b1_at_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_AA_base",
-	"SWLB_b1_grenadier_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_heavy_base",
-	"SWLB_b1_marksman_base",
-	"SWLB_b1_marksman_base"
-];
-
 //Amount of B1 droids the script will work with
 _B1count = (floor (random floor (((missionNamespace getVariable "opf_reservesRegularCount") -15) /2))) +15;
 systemChat format ["Using %1 B1 Battledroids As Reinforcements", _B1count];
@@ -49,7 +25,7 @@ while {_B1count > 0} do {
 	_B1count = _B1count -1;
 	for "_i" from 1 to 8 do {
 		if (_B1count > 0) then {
-			_unit = group _sl createUnit [selectRandom _B1UnitTypes, _safePos, [], 0, "CAN_COLLIDE"];
+			_unit = group _sl createUnit [selectRandom B1UnitTypes, _safePos, [], 0, "CAN_COLLIDE"];
 			_unit setVariable ["obj", _objName];
 			_unit setVariable ["reserve", true];
 			_unit moveInAny _gs;
