@@ -1,5 +1,29 @@
 params ["_objName"];
 
+_B1UnitTypes = [
+	"ls_cis_b1_standard",		//Some classnames appear multiple times to influence selection chance
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1AtMissile_standard",
+	"ls_cis_b1AtMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1Grenadier_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Marksman_standard",
+	"ls_cis_b1Marksman_standard"
+];
+
 _obj = [];
 {
 	if ((_x select 0) == _objName) then {
@@ -18,14 +42,14 @@ while {_B1count > 0} do {
 	_gs = createVehicle ["ls_hmp_transport", _safePos, [], 0, "CAN_COLLIDE"]; //Should be "NONE", in case the safe spot is too close to something
 	_driverGroup = createVehicleCrew _gs;
 	_driverGroup setBehaviour "CARELESS";
-	_sl = createGroup [east, true] createUnit ["SWLB_b1_officer_base", _safePos, [], 0, "CAN_COLLIDE"];
+	_sl = createGroup [east, true] createUnit ["ls_cis_oomOfficer_standard", _safePos, [], 0, "CAN_COLLIDE"];
 	_sl setVariable ["obj", _objName];
 	_unit setVariable ["reserve", true];
 	_sl moveInAny _gs;
 	_B1count = _B1count -1;
 	for "_i" from 1 to 8 do {
 		if (_B1count > 0) then {
-			_unit = group _sl createUnit [selectRandom B1UnitTypes, _safePos, [], 0, "CAN_COLLIDE"];
+			_unit = group _sl createUnit [selectRandom _B1UnitTypes, _safePos, [], 0, "CAN_COLLIDE"];
 			_unit setVariable ["obj", _objName];
 			_unit setVariable ["reserve", true];
 			_unit moveInAny _gs;

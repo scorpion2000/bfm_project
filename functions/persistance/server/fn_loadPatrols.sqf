@@ -1,6 +1,30 @@
 _inidbi = ["new", "BFM_OpforDetails"] call OO_INIDBI;
 _keysArray = ["getKeys", "opfor_patrols"] call _inidbi;
 
+_B1UnitTypes = [
+	"ls_cis_b1_standard",		//Some classnames appear multiple times to influence selection chance
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1AtMissile_standard",
+	"ls_cis_b1AtMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1Grenadier_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Marksman_standard",
+	"ls_cis_b1Marksman_standard"
+];
+
 {
 	_result = (["read", ["opfor_patrols", _x]] call _inidbi);
 	["deleteKey", ["opfor_patrols", _x]] call _inidbi;
@@ -8,7 +32,7 @@ _keysArray = ["getKeys", "opfor_patrols"] call _inidbi;
 	if ((_result select 0) > 0) then {
 		_b1c = _result#0;
 
-		_sl = createGroup [east, true] createUnit ["SWLB_b1_officer_base", (_result select 2), [], 0, "CAN_COLLIDE"];
+		_sl = createGroup [east, true] createUnit ["ls_cis_oomOfficer_standard", (_result select 2), [], 0, "CAN_COLLIDE"];
 		_sl setVariable ["patrolTo", str (_sl)];
 		_sl addEventHandler ["Killed", {
 			_o = missionNamespace getVariable (((_this select 0) getVariable "patrolTo"));
@@ -18,7 +42,7 @@ _keysArray = ["getKeys", "opfor_patrols"] call _inidbi;
 		}];
 		sleep 0.1;
 		for "_i" from 1 to (_b1c -1) do {
-			_unit = group _sl createUnit [selectRandom B1UnitTypes, (_result select 2), [], 0, "CAN_COLLIDE"];
+			_unit = group _sl createUnit [selectRandom _B1UnitTypes, (_result select 2), [], 0, "CAN_COLLIDE"];
 			_unit setVariable ["patrolTo", str (_sl)];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable (((_this select 0) getVariable "patrolTo"));

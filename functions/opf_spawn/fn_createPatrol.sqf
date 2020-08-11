@@ -4,6 +4,30 @@ if (_b1c > 8) then {
 	_b1c = floor random (_b1c -8) +8;
 };
 
+_B1UnitTypes = [
+	"ls_cis_b1_standard",		//Some classnames appear multiple times to influence selection chance
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1AtMissile_standard",
+	"ls_cis_b1AtMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1Grenadier_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Marksman_standard",
+	"ls_cis_b1Marksman_standard"
+];
+
 //Patrol hardcap
 if (_b1c > 14) then {
 	_b1c = 14;
@@ -23,7 +47,7 @@ _posRnd = _l call BIS_fnc_randomPosTrigger;
 _safePos = [_posRnd, 0, 100] call BIS_fnc_findSafePos;
 _locations = _locations - [_l];
 
-_sl = createGroup [east, true] createUnit ["SWLB_b1_officer_base", _l, [], 0, "CAN_COLLIDE"];
+_sl = createGroup [east, true] createUnit ["ls_cis_oomOfficer_standard", _l, [], 0, "CAN_COLLIDE"];
 _sl setVariable ["patrolTo", str (_sl)];
 _sl addEventHandler ["Killed", {
 	_o = missionNamespace getVariable (((_this select 0) getVariable "patrolTo"));
@@ -33,7 +57,7 @@ _sl addEventHandler ["Killed", {
 }];
 sleep 0.1;
 for "_i" from 1 to (_b1c -1) do {
-	_unit = group _sl createUnit [selectRandom B1UnitTypes, _l, [], 0, "CAN_COLLIDE"];
+	_unit = group _sl createUnit [selectRandom _B1UnitTypes, _l, [], 0, "CAN_COLLIDE"];
 	_unit setVariable ["patrolTo", str (_sl)];
 	_unit addEventHandler ["Killed", {
 		_o = missionNamespace getVariable (((_this select 0) getVariable "patrolTo"));

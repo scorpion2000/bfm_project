@@ -12,6 +12,30 @@ params ["_objective", "_spawnArea", "_triggerArea"];
 */
 _obj = missionNamespace getVariable _objective;
 
+_B1UnitTypes = [
+	"ls_cis_b1_standard",		//Some classnames appear multiple times to influence selection chance
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1_standard",
+	"ls_cis_b1AtMissile_standard",
+	"ls_cis_b1AtMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1AaMissile_standard",
+	"ls_cis_b1Grenadier_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Heavy_standard",
+	"ls_cis_b1Marksman_standard",
+	"ls_cis_b1Marksman_standard"
+];
+
 if (DEBUG) then {systemChat format ["Spawning AI at %1", _obj#1]};
 
 _milBuildingList = [];
@@ -43,6 +67,65 @@ _unitsToFill = floor (count _milBuildingList * 3);	//Calculates with 3 units per
 if (_unitsToFill <= _stationaryB1) then { _stationaryB1 = _unitsToFill };
 _rem = (_obj select 2) - _stationaryB1;
 
+//Spawn Commando Droids, if any
+if (_obj#3 != 0) then {
+	for "_i" from 1 to _obj#3 do {
+		//Randomization. 0 = patrol, else these droids (try) to occupy military buildings
+		if (floor (random 10) > 3) then {
+			_posRnd = _spawnArea call BIS_fnc_randomPosTrigger;
+			_safePos = [_posRnd, 0, 100] call BIS_fnc_findSafePos;
+			
+			_unit = createGroup [east, true] createUnit [selectRandom ["ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bxAssasin_specops"], _safePos, [], 0, "CAN_COLLIDE"];
+			_unit setVariable ["obj", _objective];
+			_unit addEventHandler ["Killed", {
+				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
+				_o set [3, ((_o select 3) -1)];
+				missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
+			}];
+			sleep 0.1;
+
+			for "_i" from 1 to (floor (random 4) +2) do {	//+2, we don't want 0 waypoints, and we want more than 1 so they actually move back and forth
+				_posRnd = _spawnArea call BIS_fnc_randomPosTrigger;
+				_safePos = [_posRnd, 0, 100] call BIS_fnc_findSafePos;
+				_wp = group _unit addWaypoint [_safePos, 0];
+				_wp setWaypointType "MOVE";
+				sleep 0.1;
+			};
+			_wp = group _unit addWaypoint [getPosATL _unit, 0];
+			_wp setWaypointType "CYCLE";
+
+			group _unit setSpeedMode "LIMITED";
+			group _unit setBehaviour "SAFE";
+			sleep 0.1;
+		} else {
+			_pos = [];
+			_badSpawn = true;
+			while {_badSpawn} do {
+				_b = selectRandom _milBuildingList;
+				_allBuildingPos = [_b] call BIS_fnc_buildingPositions;
+				_pos = selectRandom _allBuildingPos;
+
+				if (count (nearestObjects [_pos, ["Man","Car","Tank"], 4]) > 0) then {
+					_badSpawn = true;
+				} else {
+					_badSpawn = false;
+				};
+			};
+			_unit = createGroup [east, true] createUnit [selectRandom ["ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bxAssasin_specops"], _pos, [], 0, "CAN_COLLIDE"];
+			_unit setVariable ["obj", _objective];
+			_unit addEventHandler ["Killed", {
+				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
+				_o set [3, ((_o select 3) -1)];
+				missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
+			}];
+			_unit disableAI "PATH";
+			_unit setUnitPos "UP";
+			_unit setDir random 360;
+			sleep 0.1;
+		};
+	};
+};
+
 //Create B1 droids inside buildings
 if (_obj#2 != 0 && count _milBuildingList > 0) then {
 	_grp = createGroup [east, true];
@@ -63,7 +146,7 @@ if (_obj#2 != 0 && count _milBuildingList > 0) then {
 			};
 		};
 		if (!_badSpawn) then {
-			_unit = _grp createUnit [selectRandom B1UnitTypes, _pos, [], 0, "CAN_COLLIDE"];
+			_unit = _grp createUnit [selectRandom _B1UnitTypes, _pos, [], 0, "CAN_COLLIDE"];
 			_unit setVariable ["obj", _objective];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
@@ -85,7 +168,7 @@ while {_rem > 0} do {		//3 man squad, minimum
 	_posRnd = _spawnArea call BIS_fnc_randomPosTrigger;
 	_safePos = [_posRnd, 0, 100] call BIS_fnc_findSafePos;
 	
-	_sl = createGroup [east, true] createUnit ["ls_cis_b1_officer_base", _safePos, [], 0, "CAN_COLLIDE"];
+	_sl = createGroup [east, true] createUnit ["ls_cis_oomOfficer_standard", _safePos, [], 0, "CAN_COLLIDE"];
 	_sl setVariable ["obj", _objective];
 	_sl addEventHandler ["Killed", {
 		_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
@@ -96,7 +179,7 @@ while {_rem > 0} do {		//3 man squad, minimum
 	sleep 0.1;
 	for "_i" from 1 to (floor (random 6) +2) do {
 		if (_rem > 0) then {	//Gotta make sure we don't spawn more than we have
-			_unit = group _sl createUnit [selectRandom B1UnitTypes, _safePos, [], 0, "CAN_COLLIDE"];
+			_unit = group _sl createUnit [selectRandom _B1UnitTypes, _safePos, [], 0, "CAN_COLLIDE"];
 			_unit setVariable ["obj", _objective];
 			_unit addEventHandler ["Killed", {
 				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
@@ -161,65 +244,6 @@ if (_obj#5 != 0) then {
 		_wp setWaypointType "HOLD";
 		_gs setDir random 360;
 		sleep 0.1;
-	};
-};
-
-//Spawn Commando Droids, if any
-if (_obj#3 != 0) then {
-	for "_i" from 1 to _obj#3 do {
-		//Randomization. 0 = patrol, else these droids (try) to occupy military buildings
-		if (floor (random 1) == 0) then {
-			_posRnd = _spawnArea call BIS_fnc_randomPosTrigger;
-			_safePos = [_posRnd, 0, 100] call BIS_fnc_findSafePos;
-			
-			_unit = createGroup [east, true] createUnit [selectRandom ["ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bxAssasin_specops"], _safePos, [], 0, "CAN_COLLIDE"];
-			_unit setVariable ["obj", _objective];
-			_unit addEventHandler ["Killed", {
-				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
-				_o set [3, ((_o select 3) -1)];
-				missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
-			}];
-			sleep 0.1;
-
-			for "_i" from 1 to (floor (random 4) +2) do {	//+2, we don't want 0 waypoints, and we want more than 1 so they actually move back and forth
-				_posRnd = _spawnArea call BIS_fnc_randomPosTrigger;
-				_safePos = [_posRnd, 0, 100] call BIS_fnc_findSafePos;
-				_wp = group _unit addWaypoint [_safePos, 0];
-				_wp setWaypointType "MOVE";
-				sleep 0.1;
-			};
-			_wp = group _unit addWaypoint [getPosATL _unit, 0];
-			_wp setWaypointType "CYCLE";
-
-			group _unit setSpeedMode "LIMITED";
-			group _unit setBehaviour "SAFE";
-			sleep 0.1;
-		} else {
-			_pos = [];
-			_badSpawn = true;
-			while {_badSpawn} do {
-				_b = selectRandom _milBuildingList;
-				_allBuildingPos = [_b] call BIS_fnc_buildingPositions;
-				_pos = selectRandom _allBuildingPos;
-
-				if (count (nearestObjects [_pos, ["Man","Car","Tank"], 4]) > 0) then {
-					_badSpawn = true;
-				} else {
-					_badSpawn = false;
-				};
-			};
-			_unit = createGroup [east, true] createUnit [selectRandom ["ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bx_specops", "ls_cis_bxAssasin_specops"], _pos, [], 0, "CAN_COLLIDE"];
-			_unit setVariable ["obj", _objective];
-			_unit addEventHandler ["Killed", {
-				_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
-				_o set [3, ((_o select 3) -1)];
-				missionNamespace setVariable [((_this select 0) getVariable "obj"), _o];
-			}];
-			_unit disableAI "PATH";
-			_unit setUnitPos "UP";
-			_unit setDir random 360;
-			sleep 0.1;
-		};
 	};
 };
 

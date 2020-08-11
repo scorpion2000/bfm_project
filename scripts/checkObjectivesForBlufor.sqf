@@ -97,9 +97,6 @@ while {true} do {
 					};
 				} forEach allUnits inAreaArray _x;
 
-				systemChat str _bluforCount;
-				systemChat str _opforCount;
-
 				if ((_bluforCount *2) > _opforCount) then {
 					opfObjAreas_REINF pushBack _obj;
 				} else {
