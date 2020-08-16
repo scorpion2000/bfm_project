@@ -36,6 +36,7 @@ class VintigoFunctions {
 		file = "functions\spawners";
 		
 		class laatSpawnBase {};
+		class warthogSpawnBase {};
 	};
 
 	class BFM_OPFOR_unitSpawners
