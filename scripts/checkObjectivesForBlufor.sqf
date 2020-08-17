@@ -27,7 +27,6 @@ activeObjLimit = 3;		//Note: That's the amount that can be active at once
 
 while {true} do {
 	{
-		"areaCheckMarker" setMarkerPos (getPos _x);
 		_area = area_obj_1;
 		_obj = _x;
 		{
@@ -57,7 +56,6 @@ while {true} do {
 	} forEach opfObjAreas_INACTIVE;
 	if (!isNil "opfObjAreas_ACTIVE") then {
 		{
-			"areaCheckMarker2" setMarkerPos (getPos _x);
 			if (count (allPlayers inAreaArray _x) < 1 && (count opfObjAreas_WORKING) == 0) then {
 				opfObjAreas_ACTIVE = opfObjAreas_ACTIVE - [_x];
 				opfObjAreas_WORKING pushBack _x;
