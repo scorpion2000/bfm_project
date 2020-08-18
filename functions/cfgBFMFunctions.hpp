@@ -6,6 +6,7 @@ class VintigoFunctions {
 		file = "functions";
 		
 		class deployPlayer {};
+		class objComplete {};
 	};
 	
 	class BFM_PlayerPersistance 

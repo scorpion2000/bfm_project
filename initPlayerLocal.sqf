@@ -76,9 +76,7 @@ enableEnvironment [false, false];
 		_n setDir (getDir obj_1_artilleryConsole);
 		_n setPosATL (getPosATL obj_1_artilleryConsole);
 		deleteVehicle obj_1_artilleryConsole;
-		_o = missionNamespace getVariable "objective_1";
-		_o set [7, true];
-		missionNamespace setVariable ["objective_1", _o];
+		["objective_1"] remoteExec ["bfm_fnc_objComplete", 2, false];
 	}, 
 	{ hint "Cancelled!" }, 
 	[], 
