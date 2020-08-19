@@ -29,6 +29,11 @@ _opf_objs = [
 //Actual commander logic start
 while {true} do {
 	sleep 45;	//Not sure how often the commander logic should run. 45s seems reasonable?
+	/*
+		Some of these randomizations should be removed
+		Perhaps we could add in some prioritization; Maybe we could add pressure back, and it could either influence
+		the randomization, or maybe change the order the commander decides on things?
+	*/
 	_rndPatrol = floor (random 100);
 	_rndReinforce = floor (random 100);
 	_rndCounterAttack = floor (random 100);
@@ -37,7 +42,12 @@ while {true} do {
 	_rndReinforceHelp = floor (random 100);
 	_ctb = ((count (opfObjAreas_REINF) / count (opfObjAreas)) *100) -5;
 
-
+	/*
+		Maybe we should move most of these cases into their own seperate functions, implement pressure back, and
+		use it to influnce what function we call?
+		For example, a commander under high pressure may want to decide on sending reinforcements first, and while pressure
+		is low, it could decide on moving units between objectives and create more patrolls, maybe even construction
+	*/
 	switch (true) do {
 		case (count (opfObjAreas_REINF) > 0 && _rndReinforceHelp >= _ctb && COMMANDER_PLAN == "NONE"): { 
 			if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting To Send Reinforcements"};
