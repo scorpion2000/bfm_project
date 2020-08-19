@@ -70,5 +70,7 @@ _B1UnitTypes = [
 
 		missionNamespace setVariable [(str _sl), [_b1c, _wayPoints, getPos _sl]];
 		[(str _sl), _sl] remoteExec ["bfm_fnc_savePatrol", 2, false];
+	} else {
+		COMMANDER_PATROL_COUNT = COMMANDER_PATROL_COUNT -1;
 	};
 } forEach _keysArray;
