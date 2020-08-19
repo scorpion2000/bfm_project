@@ -188,7 +188,20 @@ while {true} do {
 		};
 		case (_rndReinforce < (20 + ((missionNamespace getVariable "opf_reservesRegularCount") /2))): {
 			if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting Reinforcement"};
-			_obj = selectRandom _opf_objs;
+			_obj = "";
+			_objCheck = true;
+			_objCheckLimit = 10;	//Hardcoded runtime limit, so the commander won't get stuck in this at the very last objective
+			while {_objCheck && _objCheckLimit > 0} do {
+				_obj = selectRandom _opf_objs;
+				{
+					if ((_x select 0) == _obj) then {
+						if ((_x select 0) in opfObjAreas_INACTIVE) then {
+							_objCheck = false;
+						};
+					};
+				} forEach opfObjAreas;
+				_objCheckLimit = _objCheckLimit -1;
+			};
 			_obj = missionNamespace getVariable _obj;
 			COMMANDER_REINFORCE_PLAN_ID = (_obj select 0);
 			//We reinforce with AT LEAST 10 B1 Battledroids, and the others are random
