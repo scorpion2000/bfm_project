@@ -164,7 +164,7 @@ while {true} do {
 			_low = 100;
 			_weakSelect = "objective_0";
 			for "_i" from 0 to 6 do {
-				_o = missionName getVariable format ["objective_%1", _i];
+				_o = missionNamespace getVariable format ["objective_%1", _i];
 				if ((_o select 2) < _low) then {
 					_low = (_o select 2);
 					_weakSelect = format ["objective_%1", _i];
@@ -172,8 +172,8 @@ while {true} do {
 			};
 
 			_strongSelect = selectRandom opfObjAreas_EXCESS;
-			_strong = missionName getVariable _strongSelect;
-			_weak = missionName getVariable _weakSelect;
+			_strong = missionNamespace getVariable _strongSelect;
+			_weak = missionNamespace getVariable _weakSelect;
 
 			_B1Count = floor (random (_strong select 2) -50);
 

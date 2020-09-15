@@ -1,5 +1,11 @@
 if (DEBUG) then { systemChat "Starting Opfor Reinforcement Handle" };
 
+/*
+	This needs a rework
+	Each objective should contribute to how much reinforcements the commander should get
+	This whole randomization can still be useful though, for construction resources?
+*/
+
 while {true} do {
 	sleep reinf_timer;
 	if (count allPlayers > 0) then {
