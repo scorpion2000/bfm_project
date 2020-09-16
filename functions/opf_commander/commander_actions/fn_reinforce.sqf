@@ -1,6 +1,4 @@
-_rndReinforce = floor (random 100);
-
-if (_rndReinforce < (20 + ((missionNamespace getVariable "opf_reservesRegularCount") /2))) then {
+if (((missionNamespace getVariable "opf_reservesRegularCount") /2) >= 20) then {
 	if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting Reinforcement"};
 	_objCheck = true;
 	_obj = "";

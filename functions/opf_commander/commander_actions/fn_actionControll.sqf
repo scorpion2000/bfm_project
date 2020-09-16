@@ -38,8 +38,7 @@ while {true} do {
 		//Waiting is not an option at this point
 		case (COMMANDER_PRESSURE < 60): {
 			//Hostile threat is getting bad, and the commander wants to prepare for a fight
-			if (random 100 < 60) then {ACTION_ARRAY pushBack "bfm_fnc_reinforceLow"};
-			if (random 100 < 40) then {ACTION_ARRAY pushBack "bfm_fnc_reinforce"};
+			if (random 100 < 40) then {ACTION_ARRAY pushBack "bfm_fnc_reinforceLow"};
 			if (random 100 < 50) then {ACTION_ARRAY pushBack "bfm_fnc_patrol"};
 			if (random 100 < 60) then {ACTION_ARRAY pushBack "bfm_fnc_redistribute"};
 		};

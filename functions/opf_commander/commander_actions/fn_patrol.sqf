@@ -1,4 +1,4 @@
-if (COMMANDER_PATROL_COUNT < count (opfObjAreas_INACTIVE) && _rndPatrol < 30) then { 
+if (COMMANDER_PATROL_COUNT < count (opfObjAreas_INACTIVE)) then { 
 	if (DEBUG) then {systemChat "Opfor Commander Decision: Attempting Patrol Creation"};
 	if ((missionNamespace getVariable "opf_reservesRegularCount") >= 8) then {
 		if (isNil "BFM_HC1") then {

@@ -1,4 +1,4 @@
-class VintigoFunctions {
+class BFMFunctions {
 	tag = "BFM";
 
 	class BFM_Random
