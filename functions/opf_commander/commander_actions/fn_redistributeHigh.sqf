@@ -1,13 +1,20 @@
-if (count opfObjAreas_EXCESS > 0) then {
+/*
+	Same as redistribute, but this moves units from any objective to one big objetive. This big objective is based on which objective has the most units,
+	giving a bit of randomness to the mission.
+	
+	The commander only does this under REALLY HIGH pressure. Basically a last resort
+*/
+
+if (count opfObjAreas_EXCESS > 1) then {
 	if (DEBUG) then {systemChat "Redistributing B1 Battledroids to weakest objective"};
 
-	//Get weakest objective
-	_low = 100;
+	//Get strongest objective
+	_high = 0;
 	_weakSelect = "objective_0";
 	for "_i" from 0 to (count opfObjAreas) do {
 		_o = missionNamespace getVariable format ["objective_%1", _i];
-		if ((_o select 2) < _low) then {
-			_low = (_o select 2);
+		if ((_o select 2) > _high) then {
+			_high = (_o select 2);
 			_weakSelect = format ["objective_%1", _i];
 		};
 	};

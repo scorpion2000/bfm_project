@@ -63,7 +63,23 @@ class VintigoFunctions {
 	{
 		file = "functions\opf_commander";
 		
-		class opforCommanderLogic {};
+		//class opforCommanderLogic {};
 		class handleReinforcements {};
+		class calc_pressure {};
+	};
+
+	class BFM_OPFOR_Commander
+	{
+		file = "functions\opf_commander\commander_pressure";
+		
+		class actionControl {};
+		class counterAttack {};
+		class createReinforcement {};
+		class patrol {};
+		class redistribute {};
+		class redistributeHigh {};
+		class reinforce {};
+		class reinforceHigh {};
+		class reinforceLow {};
 	};
 };

@@ -8,6 +8,8 @@ opfObjAreas = [
 	["objective_6", spawnTriggerArea_obj_7, area_obj_7]
 ];
 
+pointPerObjective = 40 / opfObjAreas;
+
 opfObjAreas_INACTIVE = [];
 opfObjAreas_ACTIVE = [];
 opfObjAreas_WORKING = [];

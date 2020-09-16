@@ -10,7 +10,7 @@ sleep 1;
 [] remoteExec ["bfm_fnc_loadObjectiveDetails", 2, false];
 [] remoteExec ["bfm_fnc_loadOpforDetails", 2, false];
 sleep 3;
-[] remoteExec ["bfm_fnc_opforCommanderLogic", 2, false];
+[] remoteExec ["bfm_fnc_actionControl", 2, false];	//New AI Commander
 [] remoteExec ["bfm_fnc_loadPatrols", 2, false];
 [] remoteExec ["bfm_fnc_loadBuildingDamage", 2, false];
 
