@@ -39,7 +39,7 @@ missionNamespace setVariable ["opf_reservesRegularCount", (missionNamespace getV
 while {_B1count > 0} do {
 	_posRnd = (_obj select 2) call BIS_fnc_randomPosTrigger;
 	_safePos = [_posRnd#0, _posRnd#1, (floor (random 500) +1000)];	//Makes spawn pos high up in air
-	_gs = createVehicle ["ls_hmp_transport", _safePos, [], 0, "CAN_COLLIDE"]; //Should be "NONE", in case the safe spot is too close to something
+	_gs = createVehicle ["442_hmp_transport", _safePos, [], 0, "CAN_COLLIDE"]; //Should be "NONE", in case the safe spot is too close to something
 	_driverGroup = createVehicleCrew _gs;
 	_driverGroup setBehaviour "CARELESS";
 	_sl = createGroup [east, true] createUnit ["ls_cis_oomOfficer_standard", _safePos, [], 0, "CAN_COLLIDE"];

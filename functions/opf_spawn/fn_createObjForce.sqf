@@ -232,7 +232,7 @@ if (_obj#5 != 0) then {
 		_posRnd = _spawnArea call BIS_fnc_randomPosTrigger;
 		_safePos = [_posRnd#0, _posRnd#1, 60];	//Makes spawn pos in air
 
-		_gs = createVehicle ["ls_hmp", _safePos, [], 0, "FLY"]; //Should be "NONE", in case the safe spot is too close to something
+		_gs = createVehicle ["442_hmp", _safePos, [], 0, "FLY"]; //Should be "NONE", in case the safe spot is too close to something
 		_gs setVariable ["obj", _objective];
 		_gs addEventHandler ["Killed", {
 			_o = missionNamespace getVariable ((_this select 0) getVariable "obj");
