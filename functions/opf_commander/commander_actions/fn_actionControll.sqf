@@ -18,7 +18,10 @@ ACTION_ARRAY = [];	//We're holding all actions the commander wants to do in this
 
 //Commander has different chances for actions under different pressure levels
 //Note: bfm_fnc_createReinforcement is in this array at all times. That action does it's own calculations
+_i = 0;
+[] remoteExec ["bfm_fnc_calcPressure", 2, false];
 while {true} do {
+	if (DEBUG) then {systemChat "AI Commander Action Control Cycle"};
 	ACTION_ARRAY pushBack "bfm_fnc_createReinforcement";
 	switch (true) do {
 		case (COMMANDER_PRESSURE < 20): {
@@ -57,6 +60,7 @@ while {true} do {
 		default {};
 	};
 	[] remoteExec ["bfm_fnc_runActions", 2, false];
-	[] remoteExec ["bfm_fnc_calcPressure", 2, false];
+	_i = _i +1;
+	if (_i == 5) then { [] remoteExec ["bfm_fnc_calcPressure", 2, false]; _i = 0 };
 	sleep 60;
 };

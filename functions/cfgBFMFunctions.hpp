@@ -68,11 +68,11 @@ class BFMFunctions {
 		class calc_pressure {};
 	};
 
-	class BFM_OPFOR_Commander
+	class BFM_OPFOR_Commander_Actions
 	{
-		file = "functions\opf_commander\commander_pressure";
+		file = "functions\opf_commander\commander_actions";
 		
-		class actionControl {};
+		class actionControll {};
 		class counterAttack {};
 		class createReinforcement {};
 		class patrol {};

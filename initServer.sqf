@@ -1,4 +1,3 @@
-DEBUG = TRUE;	//Enables systemChat debug messages
 [] spawn VCM_fnc_VcomInit;	//Enables VCOM
 
 sleep 1;
