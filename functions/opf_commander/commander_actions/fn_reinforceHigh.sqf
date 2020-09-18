@@ -13,7 +13,7 @@ _high = 0;
 _obj = [];
 {
 	_tmp = missionNamespace getVariable (_x select 0);
-	if ((_tmp select 2) > _high _x in opfObjAreas_INACTIVE) then {
+	if ((_tmp select 2) > _high && _x in opfObjAreas_INACTIVE) then {
 		_high = (_tmp select 2);
 		_obj = missionNamespace getVariable (_x select 0);
 	}
