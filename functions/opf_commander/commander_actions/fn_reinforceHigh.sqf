@@ -13,13 +13,13 @@ _high = 0;
 _obj = [];
 {
 	_tmp = missionNamespace getVariable (_x select 0);
-	if ((_tmp select 2) > _high) then {
+	if ((_tmp select 2) > _high _x in opfObjAreas_INACTIVE) then {
 		_high = (_tmp select 2);
 		_obj = missionNamespace getVariable (_x select 0);
 	}
 } forEach opfObjAreas;
 //We reinforce with AT LEAST 10 B1 Battledroids, and the others are random
-if ((missionNamespace getVariable "opf_reservesRegularCount") >= _rndReinforceCount) then {
+if ((missionNamespace getVariable "opf_reservesRegularCount") >= _rndReinforceCount && count _obj != 0) then {
 	if (DEBUG) then {systemChat "Opfor Commander Decision: Reinforcing Objective"};
 	_obj set [2, (_obj select 2)+_rndReinforceCount];
 	missionNamespace setVariable ["opf_reservesRegularCount", (missionNamespace getVariable "opf_reservesRegularCount") - _rndReinforceCount];
